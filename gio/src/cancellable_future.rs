@@ -6,10 +6,16 @@ use crate::prelude::CancellableExt;
 use crate::Cancellable;
 use crate::IOErrorEnum;
 use pin_project_lite::pin_project;
+use std::fmt::Debug;
+use std::fmt::Display;
 use std::future::Future;
 use std::pin::Pin;
 use std::task::Context;
 use std::task::Poll;
+
+// rustdoc-stripper-ignore-next
+/// Indicator that the [`CancellableFuture`] was cancelled.
+pub struct Cancelled;
 
 pin_project! {
     // rustdoc-stripper-ignore-next
@@ -45,7 +51,7 @@ impl<F> CancellableFuture<F> {
     ///
     /// When [`cancel`](CancellableExt::cancel) is called, the future will complete
     /// immediately without making any further progress. In such a case, an error
-    /// will be returned by this future (i.e., [`IOErrorEnum::Cancelled`]).
+    /// will be returned by this future (i.e., [`Cancelled`]).
     pub fn new(future: F, cancellable: Cancellable) -> Self {
         Self {
             future,
@@ -71,14 +77,11 @@ impl<F> Future for CancellableFuture<F>
 where
     F: Future,
 {
-    type Output = Result<<F as Future>::Output, glib::Error>;
+    type Output = Result<<F as Future>::Output, Cancelled>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         if self.is_cancelled() {
-            return Poll::Ready(Err(glib::Error::new(
-                IOErrorEnum::Cancelled,
-                "Task cancelled",
-            )));
+            return Poll::Ready(Err(Cancelled));
         }
 
         let mut this = self.as_mut().project();
@@ -102,13 +105,28 @@ where
                         Poll::Pending
                     }
 
-                    None => Poll::Ready(Err(glib::Error::new(
-                        IOErrorEnum::Cancelled,
-                        "Task cancelled",
-                    ))),
+                    None => Poll::Ready(Err(Cancelled)),
                 }
             }
         }
+    }
+}
+
+impl From<Cancelled> for glib::Error {
+    fn from(_: Cancelled) -> Self {
+        glib::Error::new(IOErrorEnum::Cancelled, "Task cancelled")
+    }
+}
+
+impl Debug for Cancelled {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Task cancelled")
+    }
+}
+
+impl Display for Cancelled {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        Debug::fmt(self, f)
     }
 }
 
@@ -117,7 +135,7 @@ mod tests {
     use super::Cancellable;
     use super::CancellableExt;
     use super::CancellableFuture;
-    use super::IOErrorEnum;
+    use super::Cancelled;
     use futures_channel::oneshot;
 
     #[test]
@@ -150,11 +168,11 @@ mod tests {
         {
             let c = c.clone();
             ctx.spawn_local(async move {
-                let error = CancellableFuture::new(std::future::pending::<()>(), c)
-                    .await
-                    .unwrap_err();
+                let cancellable_future = CancellableFuture::new(std::future::pending::<()>(), c);
 
-                assert!(error.matches(IOErrorEnum::Cancelled));
+                let result = cancellable_future.await;
+                assert!(matches!(result, Err(Cancelled)));
+
                 tx.send(()).unwrap();
             });
         }

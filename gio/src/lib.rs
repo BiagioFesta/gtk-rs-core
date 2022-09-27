@@ -22,6 +22,7 @@ mod async_initable;
 mod cancellable;
 mod cancellable_future;
 pub use crate::cancellable_future::CancellableFuture;
+pub use crate::cancellable_future::Cancelled;
 mod converter;
 mod data_input_stream;
 mod dbus;
