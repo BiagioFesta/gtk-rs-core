@@ -1,0 +1,1293 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `glib/src/subclass/object.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>object.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk-rs-core/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk-rs-core/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../glib/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../glib/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../glib/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+</pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+
+// rustdoc-stripper-ignore-next
+</span><span class="doccomment">//! Module that contains all types needed for creating a direct subclass of `GObject`
+//! or implementing virtual methods of it.
+
+</span><span class="kw">use </span><span class="kw">super</span>::prelude::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="kw">super</span>::Signal;
+<span class="kw">use </span><span class="kw">crate</span>::translate::<span class="kw-2">*</span>;
+<span class="kw">use crate</span>::{Cast, Object, ObjectType, ParamSpec, Value};
+<span class="kw">use </span>std::mem;
+<span class="kw">use </span>std::ptr;
+
+<span class="comment">// rustdoc-stripper-ignore-next
+</span><span class="doccomment">/// Trait for implementors of `glib::Object` subclasses.
+///
+/// This allows overriding the virtual methods of `glib::Object`.
+</span><span class="kw">pub trait </span>ObjectImpl: ObjectSubclass + ObjectImplExt {
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Properties installed for this type.
+    </span><span class="kw">fn </span>properties() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[ParamSpec] {
+        <span class="kw-2">&amp;</span>[]
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Signals installed for this type.
+    </span><span class="kw">fn </span>signals() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[Signal] {
+        <span class="kw-2">&amp;</span>[]
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Property setter.
+    ///
+    /// This is called whenever the property of this specific subclass with the
+    /// given index is set. The new value is passed as `glib::Value`.
+    </span><span class="kw">fn </span>set_property(<span class="kw-2">&amp;</span><span class="self">self</span>, _obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, _id: usize, _value: <span class="kw-2">&amp;</span>Value, _pspec: <span class="kw-2">&amp;</span>ParamSpec) {
+        <span class="macro">unimplemented!</span>()
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Property getter.
+    ///
+    /// This is called whenever the property value of the specific subclass with the
+    /// given index should be returned.
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;get_property&quot;</span>)]
+    </span><span class="kw">fn </span>property(<span class="kw-2">&amp;</span><span class="self">self</span>, _obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, _id: usize, _pspec: <span class="kw-2">&amp;</span>ParamSpec) -&gt; Value {
+        <span class="macro">unimplemented!</span>()
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Constructed.
+    ///
+    /// This is called once construction of the instance is finished.
+    ///
+    /// Should chain up to the parent class&#39; implementation.
+    </span><span class="kw">fn </span>constructed(<span class="kw-2">&amp;</span><span class="self">self</span>, obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+        <span class="self">self</span>.parent_constructed(obj);
+    }
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Disposes of the object.
+    ///
+    /// When `dispose()` ends, the object should not hold any reference to any other member object.
+    /// The object is also expected to be able to answer client method invocations (with possibly an
+    /// error code but no memory violation) until it is dropped. `dispose()` can be executed more
+    /// than once.
+    </span><span class="kw">fn </span>dispose(<span class="kw-2">&amp;</span><span class="self">self</span>, _obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {}
+}
+
+<span class="attribute">#[doc(alias = <span class="string">&quot;get_property&quot;</span>)]
+</span><span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>property&lt;T: ObjectImpl&gt;(
+    obj: <span class="kw-2">*mut </span>gobject_ffi::GObject,
+    id: u32,
+    value: <span class="kw-2">*mut </span>gobject_ffi::GValue,
+    pspec: <span class="kw-2">*mut </span>gobject_ffi::GParamSpec,
+) {
+    <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(obj <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
+    <span class="kw">let </span>imp = instance.imp();
+
+    <span class="kw">let </span>v = imp.property(
+        from_glib_borrow::&lt;<span class="kw">_</span>, Object&gt;(obj).unsafe_cast_ref(),
+        id <span class="kw">as </span>usize,
+        <span class="kw-2">&amp;</span>from_glib_borrow(pspec),
+    );
+
+    <span class="comment">// We first unset the value we get passed in, in case it contained
+    // any previous data. Then we directly overwrite it with our new
+    // value, and pass ownership of the contained data to the C GValue
+    // by forgetting it on the Rust side.
+    //
+    // Without this, by using the GValue API, we would have to create
+    // a copy of the value when setting it on the destination just to
+    // immediately free the original value afterwards.
+    </span>gobject_ffi::g_value_unset(value);
+    <span class="kw">let </span>v = mem::ManuallyDrop::new(v);
+    ptr::write(value, ptr::read(v.to_glib_none().<span class="number">0</span>));
+}
+
+<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>set_property&lt;T: ObjectImpl&gt;(
+    obj: <span class="kw-2">*mut </span>gobject_ffi::GObject,
+    id: u32,
+    value: <span class="kw-2">*mut </span>gobject_ffi::GValue,
+    pspec: <span class="kw-2">*mut </span>gobject_ffi::GParamSpec,
+) {
+    <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(obj <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
+    <span class="kw">let </span>imp = instance.imp();
+    imp.set_property(
+        from_glib_borrow::&lt;<span class="kw">_</span>, Object&gt;(obj).unsafe_cast_ref(),
+        id <span class="kw">as </span>usize,
+        <span class="kw-2">&amp;*</span>(value <span class="kw">as </span><span class="kw-2">*mut </span>Value),
+        <span class="kw-2">&amp;</span>from_glib_borrow(pspec),
+    );
+}
+
+<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>constructed&lt;T: ObjectImpl&gt;(obj: <span class="kw-2">*mut </span>gobject_ffi::GObject) {
+    <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(obj <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
+    <span class="kw">let </span>imp = instance.imp();
+
+    imp.constructed(from_glib_borrow::&lt;<span class="kw">_</span>, Object&gt;(obj).unsafe_cast_ref());
+}
+
+<span class="kw">unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>dispose&lt;T: ObjectImpl&gt;(obj: <span class="kw-2">*mut </span>gobject_ffi::GObject) {
+    <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(obj <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
+    <span class="kw">let </span>imp = instance.imp();
+
+    imp.dispose(from_glib_borrow::&lt;<span class="kw">_</span>, Object&gt;(obj).unsafe_cast_ref());
+
+    <span class="comment">// Chain up to the parent&#39;s dispose.
+    </span><span class="kw">let </span>data = T::type_data();
+    <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>gobject_ffi::GObjectClass;
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>func) = (<span class="kw-2">*</span>parent_class).dispose {
+        func(obj);
+    }
+}
+
+<span class="comment">// rustdoc-stripper-ignore-next
+</span><span class="doccomment">/// Extension trait for `glib::Object`&#39;s class struct.
+///
+/// This contains various class methods and allows subclasses to override signal class handlers.
+</span><span class="kw">pub unsafe trait </span>ObjectClassSubclassExt: Sized + <span class="lifetime">&#39;static </span>{
+    <span class="kw">fn </span>override_signal_class_handler&lt;F&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str, class_handler: F)
+    <span class="kw">where
+        </span>F: Fn(<span class="kw-2">&amp;</span><span class="kw">super</span>::SignalClassHandlerToken, <span class="kw-2">&amp;</span>[Value]) -&gt; <span class="prelude-ty">Option</span>&lt;Value&gt; + Send + Sync + <span class="lifetime">&#39;static</span>,
+    {
+        <span class="kw">unsafe </span>{
+            <span class="kw">super</span>::types::signal_override_class_handler(
+                name,
+                <span class="kw-2">*</span>(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_ as </span><span class="kw-2">*mut </span>ffi::GType),
+                class_handler,
+            );
+        }
+    }
+}
+
+<span class="kw">unsafe impl </span>ObjectClassSubclassExt <span class="kw">for </span><span class="kw">crate</span>::Class&lt;Object&gt; {}
+
+<span class="kw">unsafe impl</span>&lt;T: ObjectImpl&gt; IsSubclassable&lt;T&gt; <span class="kw">for </span>Object {
+    <span class="kw">fn </span>class_init(class: <span class="kw-2">&amp;mut </span><span class="kw">crate</span>::Class&lt;<span class="self">Self</span>&gt;) {
+        <span class="kw">let </span>klass = class.as_mut();
+        klass.set_property = <span class="prelude-val">Some</span>(set_property::&lt;T&gt;);
+        klass.get_property = <span class="prelude-val">Some</span>(property::&lt;T&gt;);
+        klass.constructed = <span class="prelude-val">Some</span>(constructed::&lt;T&gt;);
+        klass.dispose = <span class="prelude-val">Some</span>(dispose::&lt;T&gt;);
+
+        <span class="kw">let </span>pspecs = &lt;T <span class="kw">as </span>ObjectImpl&gt;::properties();
+        <span class="kw">if </span>!pspecs.is_empty() {
+            <span class="kw">unsafe </span>{
+                <span class="kw">let </span><span class="kw-2">mut </span>pspecs_ptrs = Vec::with_capacity(pspecs.len() + <span class="number">1</span>);
+
+                pspecs_ptrs.push(ptr::null_mut());
+
+                <span class="kw">for </span>pspec <span class="kw">in </span>pspecs {
+                    pspecs_ptrs.push(pspec.to_glib_none().<span class="number">0</span>);
+                }
+
+                gobject_ffi::g_object_class_install_properties(
+                    klass,
+                    pspecs_ptrs.len() <span class="kw">as </span>u32,
+                    pspecs_ptrs.as_mut_ptr(),
+                );
+            }
+        }
+
+        <span class="kw">let </span>type_ = T::type_();
+        <span class="kw">let </span>signals = &lt;T <span class="kw">as </span>ObjectImpl&gt;::signals();
+        <span class="kw">for </span>signal <span class="kw">in </span>signals {
+            signal.register(type_);
+        }
+    }
+
+    <span class="kw">fn </span>instance_init(_instance: <span class="kw-2">&amp;mut </span><span class="kw">super</span>::InitializingObject&lt;T&gt;) {}
+}
+
+<span class="kw">pub trait </span>ObjectImplExt: ObjectSubclass {
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Chain up to the parent class&#39; implementation of `glib::Object::constructed()`.
+    </span><span class="kw">fn </span>parent_constructed(<span class="kw-2">&amp;</span><span class="self">self</span>, obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type);
+
+    <span class="comment">// rustdoc-stripper-ignore-next
+    </span><span class="doccomment">/// Chain up to parent class signal handler.
+    </span><span class="kw">fn </span>signal_chain_from_overridden(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        token: <span class="kw-2">&amp;</span><span class="kw">super</span>::SignalClassHandlerToken,
+        values: <span class="kw-2">&amp;</span>[Value],
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;Value&gt;;
+}
+
+<span class="kw">impl</span>&lt;T: ObjectImpl&gt; ObjectImplExt <span class="kw">for </span>T {
+    <span class="kw">fn </span>parent_constructed(<span class="kw-2">&amp;</span><span class="self">self</span>, obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span>data = T::type_data();
+            <span class="kw">let </span>parent_class = data.as_ref().parent_class() <span class="kw">as </span><span class="kw-2">*mut </span>gobject_ffi::GObjectClass;
+
+            <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>func) = (<span class="kw-2">*</span>parent_class).constructed {
+                func(obj.unsafe_cast_ref::&lt;Object&gt;().to_glib_none().<span class="number">0</span>);
+            }
+        }
+    }
+
+    <span class="kw">fn </span>signal_chain_from_overridden(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        token: <span class="kw-2">&amp;</span><span class="kw">super</span>::SignalClassHandlerToken,
+        values: <span class="kw-2">&amp;</span>[Value],
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;Value&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">super</span>::types::signal_chain_from_overridden(
+                <span class="self">self</span>.instance().as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                token,
+                values,
+            )
+        }
+    }
+}
+
+<span class="attribute">#[cfg(test)]
+</span><span class="kw">mod </span>test {
+    <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span>::object::ObjectExt;
+    <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span>::value::{ToValue, Value};
+    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+    <span class="comment">// We rename the current crate as glib, since the macros in glib-macros
+    // generate the glib namespace through the crate_ident_new utility,
+    // and that returns `glib` (and not `crate`) when called inside the glib crate
+    </span><span class="kw">use crate as </span>glib;
+    <span class="kw">use </span><span class="kw">crate</span>::ParamSpecBuilderExt;
+    <span class="kw">use </span><span class="kw">crate</span>::StaticType;
+
+    <span class="kw">use </span>std::cell::RefCell;
+
+    <span class="kw">mod </span>imp {
+        <span class="kw">use super</span>::<span class="kw-2">*</span>;
+
+        <span class="comment">// A dummy `Object` to test setting an `Object` property and returning an `Object` in signals
+        </span><span class="attribute">#[derive(Default)]
+        </span><span class="kw">pub struct </span>ChildObject;
+
+        <span class="attribute">#[glib::object_subclass]
+        </span><span class="kw">impl </span>ObjectSubclass <span class="kw">for </span>ChildObject {
+            <span class="kw">const </span>NAME: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str = <span class="string">&quot;ChildObject&quot;</span>;
+            <span class="kw">type </span>Type = <span class="kw">super</span>::ChildObject;
+        }
+
+        <span class="kw">impl </span>ObjectImpl <span class="kw">for </span>ChildObject {}
+
+        <span class="attribute">#[derive(Default)]
+        </span><span class="kw">pub struct </span>SimpleObject {
+            name: RefCell&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
+            construct_name: RefCell&lt;<span class="prelude-ty">Option</span>&lt;String&gt;&gt;,
+            constructed: RefCell&lt;bool&gt;,
+        }
+
+        <span class="attribute">#[glib::object_subclass]
+        </span><span class="kw">impl </span>ObjectSubclass <span class="kw">for </span>SimpleObject {
+            <span class="kw">const </span>NAME: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str = <span class="string">&quot;SimpleObject&quot;</span>;
+            <span class="kw">type </span>Type = <span class="kw">super</span>::SimpleObject;
+            <span class="kw">type </span>Interfaces = (<span class="kw">super</span>::Dummy,);
+        }
+
+        <span class="kw">impl </span>ObjectImpl <span class="kw">for </span>SimpleObject {
+            <span class="kw">fn </span>properties() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[ParamSpec] {
+                <span class="kw">use </span>once_cell::sync::Lazy;
+                <span class="kw">static </span>PROPERTIES: Lazy&lt;Vec&lt;ParamSpec&gt;&gt; = Lazy::new(|| {
+                    <span class="macro">vec!</span>[
+                        <span class="kw">crate</span>::ParamSpecString::builder(<span class="string">&quot;name&quot;</span>).build(),
+                        <span class="kw">crate</span>::ParamSpecString::builder(<span class="string">&quot;construct-name&quot;</span>)
+                            .construct_only()
+                            .build(),
+                        <span class="kw">crate</span>::ParamSpecBoolean::builder(<span class="string">&quot;constructed&quot;</span>)
+                            .read_only()
+                            .build(),
+                        <span class="kw">crate</span>::ParamSpecObject::builder::&lt;<span class="kw">super</span>::ChildObject&gt;(<span class="string">&quot;child&quot;</span>).build(),
+                    ]
+                });
+
+                PROPERTIES.as_ref()
+            }
+
+            <span class="kw">fn </span>signals() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>[<span class="kw">super</span>::Signal] {
+                <span class="kw">use </span>once_cell::sync::Lazy;
+                <span class="kw">static </span>SIGNALS: Lazy&lt;Vec&lt;<span class="kw">super</span>::Signal&gt;&gt; = Lazy::new(|| {
+                    <span class="macro">vec!</span>[
+                        <span class="kw">super</span>::Signal::builder(<span class="string">&quot;name-changed&quot;</span>)
+                            .param_types([String::static_type()])
+                            .build(),
+                        <span class="kw">super</span>::Signal::builder(<span class="string">&quot;change-name&quot;</span>)
+                            .param_types([String::static_type()])
+                            .return_type::&lt;String&gt;()
+                            .action()
+                            .class_handler(|<span class="kw">_</span>, args| {
+                                <span class="kw">let </span>obj = args[<span class="number">0</span>]
+                                    .get::&lt;<span class="kw">super</span>::SimpleObject&gt;()
+                                    .expect(<span class="string">&quot;Failed to get Object from args[0]&quot;</span>);
+                                <span class="kw">let </span>new_name = args[<span class="number">1</span>]
+                                    .get::&lt;String&gt;()
+                                    .expect(<span class="string">&quot;Failed to get Object from args[1]&quot;</span>);
+                                <span class="kw">let </span>imp = obj.imp();
+
+                                <span class="kw">let </span>old_name = imp.name.replace(<span class="prelude-val">Some</span>(new_name));
+
+                                obj.emit_by_name::&lt;()&gt;(<span class="string">&quot;name-changed&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;*</span>imp.name.borrow()]);
+
+                                <span class="prelude-val">Some</span>(old_name.to_value())
+                            })
+                            .build(),
+                        <span class="kw">super</span>::Signal::builder(<span class="string">&quot;create-string&quot;</span>)
+                            .return_type::&lt;String&gt;()
+                            .build(),
+                        <span class="kw">super</span>::Signal::builder(<span class="string">&quot;create-child-object&quot;</span>)
+                            .return_type::&lt;<span class="kw">super</span>::ChildObject&gt;()
+                            .build(),
+                    ]
+                });
+
+                SIGNALS.as_ref()
+            }
+
+            <span class="kw">fn </span>set_property(
+                <span class="kw-2">&amp;</span><span class="self">self</span>,
+                obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type,
+                _id: usize,
+                value: <span class="kw-2">&amp;</span>Value,
+                pspec: <span class="kw-2">&amp;</span><span class="kw">crate</span>::ParamSpec,
+            ) {
+                <span class="kw">match </span>pspec.name() {
+                    <span class="string">&quot;name&quot; </span>=&gt; {
+                        <span class="kw">let </span>name = value
+                            .get()
+                            .expect(<span class="string">&quot;type conformity checked by &#39;Object::set_property&#39;&quot;</span>);
+                        <span class="self">self</span>.name.replace(name);
+                        obj.emit_by_name::&lt;()&gt;(<span class="string">&quot;name-changed&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;*</span><span class="self">self</span>.name.borrow()]);
+                    }
+                    <span class="string">&quot;construct-name&quot; </span>=&gt; {
+                        <span class="kw">let </span>name = value
+                            .get()
+                            .expect(<span class="string">&quot;type conformity checked by &#39;Object::set_property&#39;&quot;</span>);
+                        <span class="self">self</span>.construct_name.replace(name);
+                    }
+                    <span class="string">&quot;child&quot; </span>=&gt; {
+                        <span class="comment">// not stored, only used to test `set_property` with `Objects`
+                    </span>}
+                    <span class="kw">_ </span>=&gt; <span class="macro">unimplemented!</span>(),
+                }
+            }
+
+            <span class="kw">fn </span>property(<span class="kw-2">&amp;</span><span class="self">self</span>, _obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type, _id: usize, pspec: <span class="kw-2">&amp;</span><span class="kw">crate</span>::ParamSpec) -&gt; Value {
+                <span class="kw">match </span>pspec.name() {
+                    <span class="string">&quot;name&quot; </span>=&gt; <span class="self">self</span>.name.borrow().to_value(),
+                    <span class="string">&quot;construct-name&quot; </span>=&gt; <span class="self">self</span>.construct_name.borrow().to_value(),
+                    <span class="string">&quot;constructed&quot; </span>=&gt; <span class="self">self</span>.constructed.borrow().to_value(),
+                    <span class="kw">_ </span>=&gt; <span class="macro">unimplemented!</span>(),
+                }
+            }
+
+            <span class="kw">fn </span>constructed(<span class="kw-2">&amp;</span><span class="self">self</span>, obj: <span class="kw-2">&amp;</span><span class="self">Self</span>::Type) {
+                <span class="self">self</span>.parent_constructed(obj);
+
+                <span class="macro">assert_eq!</span>(obj, <span class="kw-2">&amp;</span><span class="self">self</span>.instance());
+                <span class="macro">assert_eq!</span>(<span class="self">self </span><span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>, obj.imp() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>);
+
+                <span class="kw-2">*</span><span class="self">self</span>.constructed.borrow_mut() = <span class="bool-val">true</span>;
+            }
+        }
+
+        <span class="attribute">#[derive(Clone, Copy)]
+        #[repr(C)]
+        </span><span class="kw">pub struct </span>DummyInterface {
+            parent: gobject_ffi::GTypeInterface,
+        }
+
+        <span class="attribute">#[glib::object_interface]
+        </span><span class="kw">unsafe impl </span>ObjectInterface <span class="kw">for </span>DummyInterface {
+            <span class="kw">const </span>NAME: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str = <span class="string">&quot;Dummy&quot;</span>;
+        }
+    }
+
+    <span class="macro">wrapper! </span>{
+        <span class="kw">pub struct </span>ChildObject(ObjectSubclass&lt;imp::ChildObject&gt;);
+    }
+
+    <span class="macro">wrapper! </span>{
+        <span class="kw">pub struct </span>SimpleObject(ObjectSubclass&lt;imp::SimpleObject&gt;);
+    }
+
+    <span class="macro">wrapper! </span>{
+        <span class="kw">pub struct </span>Dummy(ObjectInterface&lt;imp::DummyInterface&gt;);
+    }
+
+    <span class="kw">unsafe impl</span>&lt;T: ObjectSubclass&gt; IsImplementable&lt;T&gt; <span class="kw">for </span>Dummy {}
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_create() {
+        <span class="kw">let </span>type_ = SimpleObject::static_type();
+        <span class="kw">let </span>obj = Object::with_type(type_, <span class="kw-2">&amp;</span>[]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        <span class="macro">assert!</span>(obj.type_().is_a(Dummy::static_type()));
+
+        <span class="comment">// Assert that the object representation is equivalent to the underlying C GObject pointer
+        </span><span class="macro">assert_eq!</span>(
+            mem::size_of::&lt;SimpleObject&gt;(),
+            mem::size_of::&lt;ffi::gpointer&gt;()
+        );
+        <span class="macro">assert_eq!</span>(obj.as_ptr() <span class="kw">as </span>ffi::gpointer, <span class="kw">unsafe </span>{
+            <span class="kw-2">*</span>(<span class="kw-2">&amp;</span>obj <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_ as </span><span class="kw-2">*const </span>ffi::gpointer)
+        });
+
+        <span class="macro">assert!</span>(obj.property::&lt;bool&gt;(<span class="string">&quot;constructed&quot;</span>));
+
+        <span class="kw">let </span>weak = obj.downgrade();
+        drop(obj);
+        <span class="macro">assert!</span>(weak.upgrade().is_none());
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_properties() {
+        <span class="kw">let </span>type_ = SimpleObject::static_type();
+        <span class="kw">let </span>obj = Object::with_type(type_, <span class="kw-2">&amp;</span>[]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        <span class="macro">assert!</span>(obj.type_().is_a(Dummy::static_type()));
+
+        <span class="kw">let </span>properties = obj.list_properties();
+        <span class="macro">assert_eq!</span>(properties.len(), <span class="number">4</span>);
+        <span class="macro">assert_eq!</span>(properties[<span class="number">0</span>].name(), <span class="string">&quot;name&quot;</span>);
+        <span class="macro">assert_eq!</span>(properties[<span class="number">1</span>].name(), <span class="string">&quot;construct-name&quot;</span>);
+        <span class="macro">assert_eq!</span>(properties[<span class="number">2</span>].name(), <span class="string">&quot;constructed&quot;</span>);
+        <span class="macro">assert_eq!</span>(properties[<span class="number">3</span>].name(), <span class="string">&quot;child&quot;</span>);
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_create_child_object() {
+        <span class="kw">let </span>obj: ChildObject = Object::new(<span class="kw-2">&amp;</span>[]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        <span class="macro">assert_eq!</span>(obj, obj.imp().instance());
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_builder() {
+        <span class="kw">let </span>obj = Object::builder::&lt;SimpleObject&gt;()
+            .property(<span class="string">&quot;construct-name&quot;</span>, <span class="string">&quot;meh&quot;</span>)
+            .property(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;initial&quot;</span>)
+            .build()
+            .expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        <span class="macro">assert_eq!</span>(
+            obj.property::&lt;String&gt;(<span class="string">&quot;construct-name&quot;</span>),
+            String::from(<span class="string">&quot;meh&quot;</span>)
+        );
+
+        <span class="macro">assert_eq!</span>(obj.property::&lt;String&gt;(<span class="string">&quot;name&quot;</span>), String::from(<span class="string">&quot;initial&quot;</span>));
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_set_properties() {
+        <span class="kw">let </span>obj = Object::with_type(
+            SimpleObject::static_type(),
+            <span class="kw-2">&amp;</span>[(<span class="string">&quot;construct-name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;meh&quot;</span>), (<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;initial&quot;</span>)],
+        )
+        .expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        <span class="macro">assert_eq!</span>(
+            obj.property::&lt;String&gt;(<span class="string">&quot;construct-name&quot;</span>),
+            String::from(<span class="string">&quot;meh&quot;</span>)
+        );
+        <span class="macro">assert_eq!</span>(
+            obj.try_set_property(<span class="string">&quot;construct-name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;test&quot;</span>)
+                .expect_err(<span class="string">&quot;Failed to set &#39;construct-name&#39; property&quot;</span>)
+                .to_string(),
+            <span class="string">&quot;property &#39;construct-name&#39; of type &#39;SimpleObject&#39; is not writable&quot;</span>,
+        );
+        <span class="macro">assert_eq!</span>(
+            obj.property::&lt;String&gt;(<span class="string">&quot;construct-name&quot;</span>),
+            String::from(<span class="string">&quot;meh&quot;</span>)
+        );
+        <span class="macro">assert_eq!</span>(obj.property::&lt;String&gt;(<span class="string">&quot;name&quot;</span>), String::from(<span class="string">&quot;initial&quot;</span>));
+        <span class="macro">assert!</span>(obj.try_set_property(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;test&quot;</span>).is_ok());
+        <span class="macro">assert_eq!</span>(obj.property::&lt;String&gt;(<span class="string">&quot;name&quot;</span>), String::from(<span class="string">&quot;test&quot;</span>));
+
+        <span class="macro">assert_eq!</span>(
+            obj.try_set_property(<span class="string">&quot;test&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">true</span>)
+                .expect_err(<span class="string">&quot;set_property failed&quot;</span>)
+                .to_string(),
+            <span class="string">&quot;property &#39;test&#39; of type &#39;SimpleObject&#39; not found&quot;</span>,
+        );
+
+        <span class="macro">assert_eq!</span>(
+            obj.try_set_property(<span class="string">&quot;constructed&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">false</span>)
+                .expect_err(<span class="string">&quot;Failed to set &#39;constructed&#39; property&quot;</span>)
+                .to_string(),
+            <span class="string">&quot;property &#39;constructed&#39; of type &#39;SimpleObject&#39; is not writable&quot;</span>,
+        );
+
+        <span class="macro">assert_eq!</span>(
+            obj.try_set_property(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="bool-val">false</span>)
+                .expect_err(<span class="string">&quot;Failed to set &#39;name&#39; property&quot;</span>)
+                .to_string(),
+            <span class="string">&quot;property &#39;name&#39; of type &#39;SimpleObject&#39; can&#39;t be set from the given type (expected: &#39;gchararray&#39;, got: &#39;gboolean&#39;)&quot;</span>,
+        );
+
+        <span class="kw">let </span>other_obj =
+            Object::with_type(SimpleObject::static_type(), <span class="kw-2">&amp;</span>[]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+        <span class="macro">assert_eq!</span>(
+            obj.try_set_property(<span class="string">&quot;child&quot;</span>, <span class="kw-2">&amp;</span>other_obj)
+                .expect_err(<span class="string">&quot;Failed to set &#39;child&#39; property&quot;</span>)
+                .to_string(),
+            <span class="string">&quot;property &#39;child&#39; of type &#39;SimpleObject&#39; can&#39;t be set from the given type (expected: &#39;ChildObject&#39;, got: &#39;SimpleObject&#39;)&quot;</span>,
+        );
+
+        <span class="kw">let </span>child = Object::with_type(ChildObject::static_type(), <span class="kw-2">&amp;</span>[]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+        <span class="macro">assert!</span>(obj.try_set_property(<span class="string">&quot;child&quot;</span>, <span class="kw-2">&amp;</span>child).is_ok());
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_signals() {
+        <span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
+        <span class="kw">use </span>std::sync::Arc;
+
+        <span class="kw">let </span>type_ = SimpleObject::static_type();
+        <span class="kw">let </span>obj = Object::with_type(type_, <span class="kw-2">&amp;</span>[(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;old-name&quot;</span>)]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        <span class="kw">let </span>name_changed_triggered = Arc::new(AtomicBool::new(<span class="bool-val">false</span>));
+        <span class="kw">let </span>name_changed_clone = name_changed_triggered.clone();
+        obj.connect(<span class="string">&quot;name-changed&quot;</span>, <span class="bool-val">false</span>, <span class="kw">move </span>|args| {
+            <span class="kw">let </span>_obj = args[<span class="number">0</span>].get::&lt;Object&gt;().expect(<span class="string">&quot;Failed to get args[0]&quot;</span>);
+            <span class="kw">let </span>name = args[<span class="number">1</span>].get::&lt;<span class="kw-2">&amp;</span>str&gt;().expect(<span class="string">&quot;Failed to get args[1]&quot;</span>);
+
+            <span class="macro">assert_eq!</span>(name, <span class="string">&quot;new-name&quot;</span>);
+            name_changed_clone.store(<span class="bool-val">true</span>, Ordering::Relaxed);
+
+            <span class="prelude-val">None
+        </span>});
+
+        <span class="macro">assert_eq!</span>(obj.property::&lt;String&gt;(<span class="string">&quot;name&quot;</span>), String::from(<span class="string">&quot;old-name&quot;</span>));
+        <span class="macro">assert!</span>(!name_changed_triggered.load(Ordering::Relaxed));
+
+        <span class="macro">assert_eq!</span>(
+            obj.emit_by_name::&lt;String&gt;(<span class="string">&quot;change-name&quot;</span>, <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="string">&quot;new-name&quot;</span>]),
+            <span class="string">&quot;old-name&quot;
+        </span>);
+        <span class="macro">assert!</span>(name_changed_triggered.load(Ordering::Relaxed));
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_signal_return_expected_type() {
+        <span class="kw">let </span>obj = Object::with_type(SimpleObject::static_type(), <span class="kw-2">&amp;</span>[]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        obj.connect(<span class="string">&quot;create-string&quot;</span>, <span class="bool-val">false</span>, <span class="kw">move </span>|_args| {
+            <span class="prelude-val">Some</span>(<span class="string">&quot;return value&quot;</span>.to_value())
+        });
+
+        <span class="kw">let </span>signal_id = imp::SimpleObject::signals()[<span class="number">2</span>].signal_id();
+
+        <span class="kw">let </span>value = obj.emit::&lt;String&gt;(signal_id, <span class="kw-2">&amp;</span>[]);
+        <span class="macro">assert_eq!</span>(value, <span class="string">&quot;return value&quot;</span>);
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_callback_validity() {
+        <span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
+        <span class="kw">use </span>std::sync::Arc;
+
+        <span class="kw">let </span>type_ = SimpleObject::static_type();
+        <span class="kw">let </span>obj = Object::with_type(type_, <span class="kw-2">&amp;</span>[(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;old-name&quot;</span>)]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        <span class="kw">let </span>name_changed_triggered = Arc::new(AtomicBool::new(<span class="bool-val">false</span>));
+        <span class="kw">let </span>name_changed_clone = name_changed_triggered.clone();
+
+        obj.connect_notify(<span class="prelude-val">Some</span>(<span class="string">&quot;name&quot;</span>), <span class="kw">move </span>|<span class="kw">_</span>, <span class="kw">_</span>| {
+            name_changed_clone.store(<span class="bool-val">true</span>, Ordering::Relaxed);
+        });
+        obj.notify(<span class="string">&quot;name&quot;</span>);
+        <span class="macro">assert!</span>(name_changed_triggered.load(Ordering::Relaxed));
+    }
+
+    <span class="comment">// Note: can&#39;t test type mismatch in signals since panics accross FFI boundaries
+    // are UB. See https://github.com/gtk-rs/glib/issues/518
+
+    </span><span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_signal_return_expected_object_type() {
+        <span class="kw">let </span>obj = Object::with_type(SimpleObject::static_type(), <span class="kw-2">&amp;</span>[]).expect(<span class="string">&quot;Object::new failed&quot;</span>);
+
+        obj.connect(<span class="string">&quot;create-child-object&quot;</span>, <span class="bool-val">false</span>, <span class="kw">move </span>|_args| {
+            <span class="prelude-val">Some</span>(
+                Object::with_type(ChildObject::static_type(), <span class="kw-2">&amp;</span>[])
+                    .expect(<span class="string">&quot;Object::new failed&quot;</span>)
+                    .to_value(),
+            )
+        });
+        <span class="kw">let </span>value: glib::Object = obj.emit_by_name(<span class="string">&quot;create-child-object&quot;</span>, <span class="kw-2">&amp;</span>[]);
+        <span class="macro">assert!</span>(value.type_().is_a(ChildObject::static_type()));
+    }
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (ce7f0f1aa 2022-09-28)" ></div></body></html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/auto/settings_schema_source.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>settings_schema_source.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../../../normalize.css"><link rel="stylesheet" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../../../ayu.css" disabled><link rel="stylesheet" href="../../../dark.css" disabled><link rel="stylesheet" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk-rs-core/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("master" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk-rs-core/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "master") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../gio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../gio/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../gio/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><span id="1">1</span>
+<span id="2">2</span>
+<span id="3">3</span>
+<span id="4">4</span>
+<span id="5">5</span>
+<span id="6">6</span>
+<span id="7">7</span>
+<span id="8">8</span>
+<span id="9">9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
+<span id="97">97</span>
+<span id="98">98</span>
+<span id="99">99</span>
+<span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+</pre><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+// from gir-files (https://github.com/gtk-rs/gir-files)
+// DO NOT EDIT
+
+</span><span class="kw">use </span><span class="kw">crate</span>::SettingsSchema;
+<span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
+<span class="kw">use </span>std::ptr;
+
+<span class="macro">glib::wrapper! </span>{
+    <span class="doccomment">/// This is an opaque structure type. You may not access it directly.
+    </span><span class="attribute">#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    </span><span class="kw">pub struct </span>SettingsSchemaSource(Shared&lt;ffi::GSettingsSchemaSource&gt;);
+
+    <span class="kw">match fn </span>{
+        <span class="kw-2">ref </span>=&gt; |ptr| ffi::g_settings_schema_source_ref(ptr),
+        unref =&gt; |ptr| ffi::g_settings_schema_source_unref(ptr),
+        type_ =&gt; || ffi::g_settings_schema_source_get_type(),
+    }
+}
+
+<span class="kw">impl </span>SettingsSchemaSource {
+    <span class="doccomment">/// Attempts to create a new schema source corresponding to the contents
+    /// of the given directory.
+    ///
+    /// This function is not required for normal uses of [`Settings`][crate::Settings] but it
+    /// may be useful to authors of plugin management systems.
+    ///
+    /// The directory should contain a file called `gschemas.compiled` as
+    /// produced by the [glib-compile-schemas][glib-compile-schemas] tool.
+    ///
+    /// If `trusted` is [`true`] then `gschemas.compiled` is trusted not to be
+    /// corrupted. This assumption has a performance advantage, but can result
+    /// in crashes or inconsistent behaviour in the case of a corrupted file.
+    /// Generally, you should set `trusted` to [`true`] for files installed by the
+    /// system and to [`false`] for files in the home directory.
+    ///
+    /// In either case, an empty file or some types of corruption in the file will
+    /// result in `G_FILE_ERROR_INVAL` being returned.
+    ///
+    /// If `parent` is non-[`None`] then there are two effects.
+    ///
+    /// First, if [`lookup()`][Self::lookup()] is called with the
+    /// `recursive` flag set to [`true`] and the schema can not be found in the
+    /// source, the lookup will recurse to the parent.
+    ///
+    /// Second, any references to other schemas specified within this
+    /// source (ie: `child` or `extends`) references may be resolved
+    /// from the `parent`.
+    ///
+    /// For this second reason, except in very unusual situations, the
+    /// `parent` should probably be given as the default schema source, as
+    /// returned by [`default()`][Self::default()].
+    /// ## `directory`
+    /// the filename of a directory
+    /// ## `parent`
+    /// a [`SettingsSchemaSource`][crate::SettingsSchemaSource], or [`None`]
+    /// ## `trusted`
+    /// [`true`], if the directory is trusted
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;g_settings_schema_source_new_from_directory&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;new_from_directory&quot;</span>)]
+    </span><span class="kw">pub fn </span>from_directory(
+        directory: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;,
+        parent: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>SettingsSchemaSource&gt;,
+        trusted: bool,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;SettingsSchemaSource, glib::Error&gt; {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>error = ptr::null_mut();
+            <span class="kw">let </span>ret = ffi::g_settings_schema_source_new_from_directory(
+                directory.as_ref().to_glib_none().<span class="number">0</span>,
+                parent.to_glib_none().<span class="number">0</span>,
+                trusted.into_glib(),
+                <span class="kw-2">&amp;mut </span>error,
+            );
+            <span class="kw">if </span>error.is_null() {
+                <span class="prelude-val">Ok</span>(from_glib_full(ret))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">Err</span>(from_glib_full(error))
+            }
+        }
+    }
+
+    <span class="doccomment">/// Lists the schemas in a given source.
+    ///
+    /// If `recursive` is [`true`] then include parent sources. If [`false`] then
+    /// only include the schemas from one source (ie: one directory). You
+    /// probably want [`true`].
+    ///
+    /// Non-relocatable schemas are those for which you can call
+    /// [`Settings::new()`][crate::Settings::new()]. Relocatable schemas are those for which you must
+    /// use [`Settings::with_path()`][crate::Settings::with_path()].
+    ///
+    /// Do not call this function from normal programs. This is designed for
+    /// use by database editors, commandline tools, etc.
+    /// ## `recursive`
+    /// if we should recurse
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `non_relocatable`
+    /// the
+    ///  list of non-relocatable schemas, in no defined order
+    ///
+    /// ## `relocatable`
+    /// the list
+    ///  of relocatable schemas, in no defined order
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;g_settings_schema_source_list_schemas&quot;</span>)]
+    </span><span class="kw">pub fn </span>list_schemas(<span class="kw-2">&amp;</span><span class="self">self</span>, recursive: bool) -&gt; (Vec&lt;glib::GString&gt;, Vec&lt;glib::GString&gt;) {
+        <span class="kw">unsafe </span>{
+            <span class="kw">let </span><span class="kw-2">mut </span>non_relocatable = ptr::null_mut();
+            <span class="kw">let </span><span class="kw-2">mut </span>relocatable = ptr::null_mut();
+            ffi::g_settings_schema_source_list_schemas(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                recursive.into_glib(),
+                <span class="kw-2">&amp;mut </span>non_relocatable,
+                <span class="kw-2">&amp;mut </span>relocatable,
+            );
+            (
+                FromGlibPtrContainer::from_glib_full(non_relocatable),
+                FromGlibPtrContainer::from_glib_full(relocatable),
+            )
+        }
+    }
+
+    <span class="doccomment">/// Looks up a schema with the identifier `schema_id` in `self`.
+    ///
+    /// This function is not required for normal uses of [`Settings`][crate::Settings] but it
+    /// may be useful to authors of plugin management systems or to those who
+    /// want to introspect the content of schemas.
+    ///
+    /// If the schema isn&#39;t found directly in `self` and `recursive` is [`true`]
+    /// then the parent sources will also be checked.
+    ///
+    /// If the schema isn&#39;t found, [`None`] is returned.
+    /// ## `schema_id`
+    /// a schema ID
+    /// ## `recursive`
+    /// [`true`] if the lookup should be recursive
+    ///
+    /// # Returns
+    ///
+    /// a new [`SettingsSchema`][crate::SettingsSchema]
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;g_settings_schema_source_lookup&quot;</span>)]
+    </span><span class="kw">pub fn </span>lookup(<span class="kw-2">&amp;</span><span class="self">self</span>, schema_id: <span class="kw-2">&amp;</span>str, recursive: bool) -&gt; <span class="prelude-ty">Option</span>&lt;SettingsSchema&gt; {
+        <span class="kw">unsafe </span>{
+            from_glib_full(ffi::g_settings_schema_source_lookup(
+                <span class="self">self</span>.to_glib_none().<span class="number">0</span>,
+                schema_id.to_glib_none().<span class="number">0</span>,
+                recursive.into_glib(),
+            ))
+        }
+    }
+
+    <span class="doccomment">/// Gets the default system schema source.
+    ///
+    /// This function is not required for normal uses of [`Settings`][crate::Settings] but it
+    /// may be useful to authors of plugin management systems or to those who
+    /// want to introspect the content of schemas.
+    ///
+    /// If no schemas are installed, [`None`] will be returned.
+    ///
+    /// The returned source may actually consist of multiple schema sources
+    /// from different directories, depending on which directories were given
+    /// in `XDG_DATA_DIRS` and `GSETTINGS_SCHEMA_DIR`. For this reason, all
+    /// lookups performed against the default source should probably be done
+    /// recursively.
+    ///
+    /// # Returns
+    ///
+    /// the default schema source
+    </span><span class="attribute">#[doc(alias = <span class="string">&quot;g_settings_schema_source_get_default&quot;</span>)]
+    #[doc(alias = <span class="string">&quot;get_default&quot;</span>)]
+    </span><span class="kw">pub fn </span>default() -&gt; <span class="prelude-ty">Option</span>&lt;SettingsSchemaSource&gt; {
+        <span class="kw">unsafe </span>{ from_glib_none(ffi::g_settings_schema_source_get_default()) }
+    }
+}
+</code></pre></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="gio" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (ce7f0f1aa 2022-09-28)" ></div></body></html>
