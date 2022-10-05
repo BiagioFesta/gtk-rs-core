@@ -942,6 +942,14 @@
 <span id="869">869</span>
 <span id="870">870</span>
 <span id="871">871</span>
+<span id="872">872</span>
+<span id="873">873</span>
+<span id="874">874</span>
+<span id="875">875</span>
+<span id="876">876</span>
+<span id="877">877</span>
+<span id="878">878</span>
+<span id="879">879</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span><span class="kw">crate</span>::translate::<span class="kw-2">*</span>;
@@ -950,7 +958,14 @@
 <span class="kw">use </span>std::ffi::CStr;
 <span class="kw">use </span>std::{cmp, fmt, ptr};
 
-<span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+<span class="doccomment">/// These are logical ids for special directories which are defined
+/// depending on the platform used. You should use [`user_special_dir()`][crate::user_special_dir()]
+/// to retrieve the full path associated to the logical id.
+///
+/// The [`UserDirectory`][crate::UserDirectory] enumeration can be extended at later date. Not
+/// every platform has a directory for every logical id in this
+/// enumeration.
+</span><span class="attribute">#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 </span><span class="kw">pub enum </span>UserDirectory {
     <span class="attribute">#[doc(alias = <span class="string">&quot;G_USER_DIRECTORY_DESKTOP&quot;</span>)]
     </span>Desktop,
@@ -968,7 +983,8 @@
     </span>Templates,
     <span class="attribute">#[doc(alias = <span class="string">&quot;G_USER_DIRECTORY_VIDEOS&quot;</span>)]
     </span>Videos,
-    <span class="attribute">#[doc(hidden)]
+    <span class="doccomment">/// the number of enum values
+    </span><span class="attribute">#[doc(hidden)]
     #[doc(alias = <span class="string">&quot;G_USER_N_DIRECTORIES&quot;</span>)]
     </span>NDirectories,
 }
@@ -1814,4 +1830,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (ce7f0f1aa 2022-09-28)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (01af5040f 2022-10-04)" ></div></body></html>

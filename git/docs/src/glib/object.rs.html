@@ -4759,6 +4759,36 @@
 <span id="4686">4686</span>
 <span id="4687">4687</span>
 <span id="4688">4688</span>
+<span id="4689">4689</span>
+<span id="4690">4690</span>
+<span id="4691">4691</span>
+<span id="4692">4692</span>
+<span id="4693">4693</span>
+<span id="4694">4694</span>
+<span id="4695">4695</span>
+<span id="4696">4696</span>
+<span id="4697">4697</span>
+<span id="4698">4698</span>
+<span id="4699">4699</span>
+<span id="4700">4700</span>
+<span id="4701">4701</span>
+<span id="4702">4702</span>
+<span id="4703">4703</span>
+<span id="4704">4704</span>
+<span id="4705">4705</span>
+<span id="4706">4706</span>
+<span id="4707">4707</span>
+<span id="4708">4708</span>
+<span id="4709">4709</span>
+<span id="4710">4710</span>
+<span id="4711">4711</span>
+<span id="4712">4712</span>
+<span id="4713">4713</span>
+<span id="4714">4714</span>
+<span id="4715">4715</span>
+<span id="4716">4716</span>
+<span id="4717">4717</span>
+<span id="4718">4718</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 // rustdoc-stripper-ignore-next
@@ -6126,19 +6156,34 @@
                 .ok_or_else(|| <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t retrieve class for type &#39;{}&#39;&quot;</span>, type_))<span class="question-mark">?</span>;
             <span class="kw">let </span>pspecs = klass.list_properties();
 
-            properties
-                .iter()
-                .map(|(name, value)| {
-                    <span class="kw">let </span>pspec = pspecs.iter().find(|p| p.name() == <span class="kw-2">*</span>name).ok_or_else(|| {
-                        <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, name, type_)
-                    })<span class="question-mark">?</span>;
+            <span class="kw">let </span><span class="kw-2">mut </span>validated_properties =
+                smallvec::SmallVec::&lt;[<span class="kw">_</span>; <span class="number">16</span>]&gt;::with_capacity(properties.len());
+            <span class="kw">for </span>(idx, (name, value)) <span class="kw">in </span>properties.iter().enumerate() {
+                <span class="kw">let </span>pspec = pspecs.iter().find(|p| p.name() == <span class="kw-2">*</span>name).ok_or_else(|| {
+                    <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, name, type_)
+                })<span class="question-mark">?</span>;
 
-                    <span class="kw">let </span><span class="kw-2">mut </span>value = value.to_value();
-                    validate_property_type(type_, <span class="bool-val">true</span>, pspec, <span class="kw-2">&amp;mut </span>value)<span class="question-mark">?</span>;
-                    <span class="prelude-val">Ok</span>((pspec.name().as_ptr(), value))
-                })
-                .collect::&lt;<span class="prelude-ty">Result</span>&lt;smallvec::SmallVec&lt;[<span class="kw">_</span>; <span class="number">10</span>]&gt;, <span class="kw">_</span>&gt;&gt;()<span class="question-mark">?
-        </span>} <span class="kw">else </span>{
+                <span class="kw">if </span>(pspec.flags().contains(<span class="kw">crate</span>::ParamFlags::CONSTRUCT)
+                    || pspec.flags().contains(<span class="kw">crate</span>::ParamFlags::CONSTRUCT_ONLY))
+                    &amp;&amp; properties[<span class="number">0</span>..idx]
+                        .iter()
+                        .any(|(other_name, <span class="kw">_</span>)| name == other_name)
+                {
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
+                        <span class="string">&quot;Can&#39;t set construct property &#39;{}&#39; for type &#39;{}&#39; twice&quot;</span>,
+                        name,
+                        type_
+                    ));
+                }
+
+                <span class="kw">let </span><span class="kw-2">mut </span>value = value.to_value();
+                validate_property_type(type_, <span class="bool-val">true</span>, pspec, <span class="kw-2">&amp;mut </span>value)<span class="question-mark">?</span>;
+
+                validated_properties.push((pspec.name().as_ptr(), value));
+            }
+
+            validated_properties
+        } <span class="kw">else </span>{
             smallvec::SmallVec::new()
         };
 
@@ -6156,19 +6201,34 @@
                 .ok_or_else(|| <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t retrieve class for type &#39;{}&#39;&quot;</span>, type_))<span class="question-mark">?</span>;
             <span class="kw">let </span>pspecs = klass.list_properties();
 
-            properties
-                .iter()
-                .map(|(name, value)| {
-                    <span class="kw">let </span>pspec = pspecs.iter().find(|p| p.name() == <span class="kw-2">*</span>name).ok_or_else(|| {
-                        <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, name, type_)
-                    })<span class="question-mark">?</span>;
+            <span class="kw">let </span><span class="kw-2">mut </span>validated_properties =
+                smallvec::SmallVec::&lt;[<span class="kw">_</span>; <span class="number">16</span>]&gt;::with_capacity(properties.len());
+            <span class="kw">for </span>(idx, (name, value)) <span class="kw">in </span>properties.iter().enumerate() {
+                <span class="kw">let </span>pspec = pspecs.iter().find(|p| p.name() == <span class="kw-2">*</span>name).ok_or_else(|| {
+                    <span class="macro">bool_error!</span>(<span class="string">&quot;Can&#39;t find property &#39;{}&#39; for type &#39;{}&#39;&quot;</span>, name, type_)
+                })<span class="question-mark">?</span>;
 
-                    <span class="kw">let </span><span class="kw-2">mut </span>value = value.clone();
-                    validate_property_type(type_, <span class="bool-val">true</span>, pspec, <span class="kw-2">&amp;mut </span>value)<span class="question-mark">?</span>;
-                    <span class="prelude-val">Ok</span>((pspec.name().as_ptr(), value))
-                })
-                .collect::&lt;<span class="prelude-ty">Result</span>&lt;smallvec::SmallVec&lt;[<span class="kw">_</span>; <span class="number">10</span>]&gt;, <span class="kw">_</span>&gt;&gt;()<span class="question-mark">?
-        </span>} <span class="kw">else </span>{
+                <span class="kw">if </span>(pspec.flags().contains(<span class="kw">crate</span>::ParamFlags::CONSTRUCT)
+                    || pspec.flags().contains(<span class="kw">crate</span>::ParamFlags::CONSTRUCT_ONLY))
+                    &amp;&amp; properties[<span class="number">0</span>..idx]
+                        .iter()
+                        .any(|(other_name, <span class="kw">_</span>)| name == other_name)
+                {
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">bool_error!</span>(
+                        <span class="string">&quot;Can&#39;t set construct property &#39;{}&#39; for type &#39;{}&#39; twice&quot;</span>,
+                        name,
+                        type_
+                    ));
+                }
+
+                <span class="kw">let </span><span class="kw-2">mut </span>value = value.clone();
+                validate_property_type(type_, <span class="bool-val">true</span>, pspec, <span class="kw-2">&amp;mut </span>value)<span class="question-mark">?</span>;
+
+                validated_properties.push((pspec.name().as_ptr(), value));
+            }
+
+            validated_properties
+        } <span class="kw">else </span>{
             smallvec::SmallVec::new()
         };
 
@@ -9448,4 +9508,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (ce7f0f1aa 2022-09-28)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (01af5040f 2022-10-04)" ></div></body></html>

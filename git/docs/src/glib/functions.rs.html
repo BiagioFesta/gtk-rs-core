@@ -336,6 +336,22 @@
 <span id="263">263</span>
 <span id="264">264</span>
 <span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="attribute">#[cfg(not(windows))]
@@ -563,7 +579,23 @@
     }
 }
 
-<span class="attribute">#[cfg(unix)]
+<span class="doccomment">/// Similar to the UNIX `pipe()` call, but on modern systems like Linux
+/// uses the `pipe2()` system call, which atomically creates a pipe with
+/// the configured flags. The only supported flag currently is
+/// `FD_CLOEXEC`. If for example you want to configure `O_NONBLOCK`, that
+/// must still be done separately with `fcntl()`.
+///
+/// This function does not take `O_CLOEXEC`, it takes `FD_CLOEXEC` as if
+/// for `fcntl()`; these are different on Linux/glibc.
+/// ## `fds`
+/// Array of two integers
+/// ## `flags`
+/// Bitfield of file descriptor flags, as for `fcntl()`
+///
+/// # Returns
+///
+/// [`true`] on success, [`false`] if not (and errno will be set).
+</span><span class="attribute">#[cfg(unix)]
 #[doc(alias = <span class="string">&quot;g_unix_open_pipe&quot;</span>)]
 </span><span class="kw">pub fn </span>unix_open_pipe(flags: i32) -&gt; <span class="prelude-ty">Result</span>&lt;(RawFd, RawFd), Error&gt; {
     <span class="kw">unsafe </span>{
@@ -602,4 +634,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (ce7f0f1aa 2022-09-28)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (01af5040f 2022-10-04)" ></div></body></html>

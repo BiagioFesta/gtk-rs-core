@@ -680,6 +680,19 @@
 <span id="607">607</span>
 <span id="608">608</span>
 <span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
 </pre><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 // rustdoc-stripper-ignore-next
@@ -1210,6 +1223,19 @@
     }
 
     <span class="attribute">#[test]
+    </span><span class="kw">fn </span>test_construct_property_set_twice() {
+        <span class="macro">assert_eq!</span>(
+            Object::with_type(
+                SimpleObject::static_type(),
+                <span class="kw-2">&amp;</span>[(<span class="string">&quot;construct-name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;meh&quot;</span>), (<span class="string">&quot;construct-name&quot;</span>, <span class="kw-2">&amp;</span><span class="string">&quot;meh2&quot;</span>)],
+            )
+            .expect_err(<span class="string">&quot;Can&#39;t set construct property twice&quot;</span>)
+            .to_string(),
+            <span class="string">&quot;Can&#39;t set construct property &#39;construct-name&#39; for type &#39;SimpleObject&#39; twice&quot;</span>,
+        );
+    }
+
+    <span class="attribute">#[test]
     </span><span class="kw">fn </span>test_signals() {
         <span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
         <span class="kw">use </span>std::sync::Arc;
@@ -1290,4 +1316,4 @@
     }
 }
 </code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (ce7f0f1aa 2022-09-28)" ></div></body></html>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="glib" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (01af5040f 2022-10-04)" ></div></body></html>
