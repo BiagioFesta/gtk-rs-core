@@ -349,6 +349,26 @@
 <a href="#276" id="276">276</a>
 <a href="#277" id="277">277</a>
 <a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
 </pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span>std::{
@@ -450,7 +470,27 @@
     }
 }
 
-<span class="attr">#[doc(alias = <span class="string">&quot;g_file_get_contents&quot;</span>)]
+<span class="doccomment">/// Reads an entire file into allocated memory, with good error
+/// checking.
+///
+/// If the call was successful, it returns [`true`] and sets `contents` to the file
+/// contents and `length` to the length of the file contents in bytes. The string
+/// stored in `contents` will be nul-terminated, so for text files you can pass
+/// [`None`] for the `length` argument. If the call was not successful, it returns
+/// [`false`] and sets `error`. The error domain is `G_FILE_ERROR`. Possible error
+/// codes are those in the [`FileError`][crate::FileError] enumeration. In the error case,
+/// `contents` is set to [`None`] and `length` is set to zero.
+/// ## `filename`
+/// name of a file to read contents from, in the GLib file name encoding
+///
+/// # Returns
+///
+/// [`true`] on success, [`false`] if an error occurred
+///
+/// ## `contents`
+/// location to store an allocated string, use `g_free()` to free
+///  the returned string
+</span><span class="attr">#[doc(alias = <span class="string">&quot;g_file_get_contents&quot;</span>)]
 </span><span class="kw">pub fn </span>file_get_contents(
     filename: <span class="kw">impl </span>AsRef&lt;std::path::Path&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">crate</span>::Slice&lt;u8&gt;, <span class="kw">crate</span>::Error&gt; {
