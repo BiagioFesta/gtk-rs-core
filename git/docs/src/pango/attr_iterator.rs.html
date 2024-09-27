@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `pango/src/attr_iterator.rs`."><title>attr_iterator.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pango" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `pango/src/attr_iterator.rs`."><title>attr_iterator.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pango" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../pango/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">pango/</div>attr_iterator.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -307,14 +306,13 @@
 <a href="#232" id="232">232</a>
 <a href="#233" id="233">233</a>
 <a href="#234" id="234">234</a>
-<a href="#235" id="235">235</a>
-</pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+<a href="#235" id="235">235</a></pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span>std::{marker::PhantomData, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
+</span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">marker::PhantomData</a>, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
 
 <span class="kw">use </span>glib::{<a href="../../glib/translate/index.html">translate</a>::<span class="kw-2">*</span>, <a href="../../glib/collections/slist/struct.SList.html">SList</a>};
 
-<span class="kw">use crate</span>::{<a href="auto/enums.rs.html#124-254">AttrType</a>, <a href="auto/attribute.rs.html#9-26">Attribute</a>, <a href="auto/font_description.rs.html#8-23">FontDescription</a>, <a href="auto/language.rs.html#8-22">Language</a>};
+<span class="kw">use crate</span>::{<a href="../../pango_sys/index.html">ffi</a>, <a href="auto/enums.rs.html#124-254">AttrType</a>, <a href="auto/attribute.rs.html#10-27">Attribute</a>, <a href="auto/font_description.rs.html#8-23">FontDescription</a>, <a href="auto/language.rs.html#8-22">Language</a>};
 
 <span class="doccomment">/// A [`AttrIterator`][crate::AttrIterator] is used to iterate through a [`AttrList`][crate::AttrList].
 ///
@@ -333,11 +331,11 @@
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>ptr = <span class="kw">unsafe </span>{
-            ptr::NonNull::new_unchecked(ffi::pango_attr_iterator_copy(<a class="self" href="#24">self</a>.ptr.as_ptr()))
+            <a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html#method.new_unchecked">ptr::NonNull::new_unchecked</a>(<a href="../../pango_sys/fn.pango_attr_iterator_copy.html">ffi::pango_attr_iterator_copy</a>(<a class="self" href="#24">self</a>.ptr.<a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html#method.as_ptr">as_ptr</a>()))
         };
         <span class="self">Self </span>{
             <a href="#25">ptr</a>,
-            list: PhantomData,
+            list: <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">PhantomData</a>,
         }
     }
 }
@@ -346,7 +344,7 @@
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="kw">unsafe </span>{
-            ffi::pango_attr_iterator_destroy(<a class="self" href="#37">self</a>.ptr.as_ptr());
+            <a href="../../pango_sys/fn.pango_attr_iterator_destroy.html">ffi::pango_attr_iterator_destroy</a>(<a class="self" href="#37">self</a>.ptr.<a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html#method.as_ptr">as_ptr</a>());
         }
     }
 }
@@ -356,77 +354,77 @@
 </span><span class="kw">impl</span>&lt;<span class="lifetime">'list</span>&gt; <a href="../../glib/types/trait.StaticType.html">glib::prelude::StaticType</a> <span class="kw">for </span>AttrIterator&lt;<span class="lifetime">'list</span>&gt; {
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>static_type() -&gt; <a href="../../glib/types/struct.Type.html">glib::Type</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::pango_attr_iterator_get_type()) }
+        <span class="kw">unsafe </span>{ <a href="../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../pango_sys/fn.pango_attr_iterator_get_type.html">ffi::pango_attr_iterator_get_type</a>()) }
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'list</span>&gt; AttrIterator&lt;<span class="lifetime">'list</span>&gt; {
     <span class="attr">#[doc(alias = <span class="string">"pango_attr_iterator_get"</span>)]
-    </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: <a href="auto/enums.rs.html#124-254">AttrType</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/attribute.rs.html#9-26">Attribute</a>&gt; {
+    </span><span class="kw">pub fn </span>get(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: <a href="auto/enums.rs.html#124-254">AttrType</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="auto/attribute.rs.html#10-27">Attribute</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::pango_attr_iterator_get(
-                mut_override(<a class="self" href="#55">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-                <a href="#55">type_</a>.<a href="../../glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../pango_sys/fn.pango_attr_iterator_get.html">ffi::pango_attr_iterator_get</a>(
+                <a href="../../glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#55">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+                <a href="#55">type_</a>.<a href="../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
             ))
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">"pango_attr_iterator_get_attrs"</span>)]
     #[doc(alias = <span class="string">"get_attrs"</span>)]
-    </span><span class="kw">pub fn </span>attrs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SList&lt;<a href="auto/attribute.rs.html#9-26">Attribute</a>&gt; {
+    </span><span class="kw">pub fn </span>attrs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; SList&lt;<a href="auto/attribute.rs.html#10-27">Attribute</a>&gt; {
         <span class="kw">unsafe </span>{
-            <a href="../../glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_full</a>(ffi::pango_attr_iterator_get_attrs(mut_override(
-                <a class="self" href="#66">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../glib/translate/trait.FromGlibPtrContainer.html#tymethod.from_glib_full">FromGlibPtrContainer::from_glib_full</a>(<a href="../../pango_sys/fn.pango_attr_iterator_get_attrs.html">ffi::pango_attr_iterator_get_attrs</a>(<a href="../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#66">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
 
     <span class="attr">#[doc(alias = <span class="string">"pango_attr_iterator_next"</span>)]
     </span><span class="kw">pub fn </span>next_style_change(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ from_glib(ffi::pango_attr_iterator_next(<a class="self" href="#75">self</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>)) }
+        <span class="kw">unsafe </span>{ <a href="../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../pango_sys/fn.pango_attr_iterator_next.html">ffi::pango_attr_iterator_next</a>(<a class="self" href="#75">self</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>)) }
     }
 
     <span class="attr">#[doc(alias = <span class="string">"pango_attr_iterator_range"</span>)]
     </span><span class="kw">pub fn </span>range(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>start = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>end = mem::MaybeUninit::uninit();
-            ffi::pango_attr_iterator_range(
-                mut_override(<a class="self" href="#80">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-                <a href="#82">start</a>.as_mut_ptr(),
-                <a href="#83">end</a>.as_mut_ptr(),
+            <span class="kw">let </span><span class="kw-2">mut </span>start = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">mem::MaybeUninit::uninit</a>();
+            <span class="kw">let </span><span class="kw-2">mut </span>end = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">mem::MaybeUninit::uninit</a>();
+            <a href="../../pango_sys/fn.pango_attr_iterator_range.html">ffi::pango_attr_iterator_range</a>(
+                <a href="../../glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#80">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+                <a href="#82">start</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
+                <a href="#83">end</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
             );
-            <span class="kw">let </span>start = <a href="#82">start</a>.assume_init();
-            <span class="kw">let </span>end = <a href="#83">end</a>.assume_init();
+            <span class="kw">let </span>start = <a href="#82">start</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>();
+            <span class="kw">let </span>end = <a href="#83">end</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>();
             (<a href="#89">start</a>, <a href="#90">end</a>)
         }
     }
     <span class="attr">#[doc(alias = <span class="string">"pango_attr_iterator_get_font"</span>)]
     #[doc(alias = <span class="string">"get_font"</span>)]
-    </span><span class="kw">pub fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<a href="auto/font_description.rs.html#8-23">FontDescription</a>, <span class="prelude-ty">Option</span>&lt;<a href="auto/language.rs.html#8-22">Language</a>&gt;, SList&lt;<a href="auto/attribute.rs.html#9-26">Attribute</a>&gt;) {
+    </span><span class="kw">pub fn </span>font(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<a href="auto/font_description.rs.html#8-23">FontDescription</a>, <span class="prelude-ty">Option</span>&lt;<a href="auto/language.rs.html#8-22">Language</a>&gt;, SList&lt;<a href="auto/attribute.rs.html#10-27">Attribute</a>&gt;) {
         <span class="kw">unsafe </span>{
             <span class="kw">let </span>desc = <a href="auto/font_description.rs.html#33-35">FontDescription::new</a>();
-            <span class="kw">let </span><span class="kw-2">mut </span>language = mem::MaybeUninit::uninit();
-            <span class="kw">let </span><span class="kw-2">mut </span>extra_attrs = mem::MaybeUninit::uninit();
+            <span class="kw">let </span><span class="kw-2">mut </span>language = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">mem::MaybeUninit::uninit</a>();
+            <span class="kw">let </span><span class="kw-2">mut </span>extra_attrs = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">mem::MaybeUninit::uninit</a>();
 
-            ffi::pango_attr_iterator_get_font(
-                mut_override(<a class="self" href="#96">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-                mut_override(<a href="#98">desc</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-                <a href="#99">language</a>.as_mut_ptr(),
-                <a href="#100">extra_attrs</a>.as_mut_ptr(),
+            <a href="../../pango_sys/fn.pango_attr_iterator_get_font.html">ffi::pango_attr_iterator_get_font</a>(
+                <a href="../../glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#96">self</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+                <a href="../../glib/translate/fn.mut_override.html">mut_override</a>(<a href="#98">desc</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+                <a href="#99">language</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
+                <a href="#100">extra_attrs</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
             );
 
             (
                 <a href="#98">desc</a>,
-                from_glib_full(<a href="#99">language</a>.assume_init()),
-                <a href="../../glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_full</a>(<a href="#100">extra_attrs</a>.assume_init()),
+                <a href="../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="#99">language</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>()),
+                <a href="../../glib/translate/trait.FromGlibPtrContainer.html#tymethod.from_glib_full">FromGlibPtrContainer::from_glib_full</a>(<a href="#100">extra_attrs</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>()),
             )
         }
     }
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'list</span>&gt; <a href="https://doc.rust-lang.org/nightly/core/iter/traits/collect/trait.IntoIterator.html">IntoIterator</a> <span class="kw">for </span>AttrIterator&lt;<span class="lifetime">'list</span>&gt; {
-    <span class="kw">type </span>Item = SList&lt;<a href="auto/attribute.rs.html#9-26">Attribute</a>&gt;;
+    <span class="kw">type </span>Item = SList&lt;<a href="auto/attribute.rs.html#10-27">Attribute</a>&gt;;
     <span class="kw">type </span>IntoIter = AttrIntoIter&lt;<span class="lifetime">'list</span>&gt;;
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>into_iter(<span class="self">self</span>) -&gt; <span class="self">Self</span>::IntoIter {
@@ -439,7 +437,7 @@
 </span><span class="kw">pub struct </span><a href="../../pango/struct.AttrIntoIter.html">AttrIntoIter</a>&lt;<span class="lifetime">'list</span>&gt;(<span class="prelude-ty">Option</span>&lt;AttrIterator&lt;<span class="lifetime">'list</span>&gt;&gt;);
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'list</span>&gt; <a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html">Iterator</a> <span class="kw">for </span>AttrIntoIter&lt;<span class="lifetime">'list</span>&gt; {
-    <span class="kw">type </span>Item = SList&lt;<a href="auto/attribute.rs.html#9-26">Attribute</a>&gt;;
+    <span class="kw">type </span>Item = SList&lt;<a href="auto/attribute.rs.html#10-27">Attribute</a>&gt;;
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>next(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>::Item&gt; {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(iter) = <span class="kw-2">&amp;mut </span><a class="self" href="#134">self</a>.<span class="number">0 </span>{
@@ -464,7 +462,7 @@
     <span class="kw">type </span>Storage = PhantomData&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">Self</span>&gt;;
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_glib_none(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>) -&gt; Stash&lt;<span class="lifetime">'a</span>, <span class="kw-2">*const </span><a href="../../pango_sys/struct.PangoAttrIterator.html">ffi::PangoAttrIterator</a>, <span class="self">Self</span>&gt; {
-        Stash(<a class="self" href="#156">self</a>.ptr.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>, PhantomData)
+        <a href="../../glib/translate/struct.Stash.html">Stash</a>(<a class="self" href="#156">self</a>.ptr.<a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">PhantomData</a>)
     }
 }
 
@@ -476,7 +474,7 @@
     <span class="kw">type </span>Storage = PhantomData&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="kw-2">mut </span><span class="self">Self</span>&gt;;
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>to_glib_none_mut(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="kw-2">mut </span><span class="self">self</span>) -&gt; StashMut&lt;<span class="lifetime">'a</span>, <span class="kw-2">*mut </span><a href="../../pango_sys/struct.PangoAttrIterator.html">ffi::PangoAttrIterator</a>, <span class="self">Self</span>&gt; {
-        StashMut(<a class="self" href="#168">self</a>.ptr.as_ptr(), PhantomData)
+        <a href="../../glib/translate/struct.StashMut.html">StashMut</a>(<a class="self" href="#168">self</a>.ptr.<a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html#method.as_ptr">as_ptr</a>(), <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">PhantomData</a>)
     }
 }
 
@@ -485,8 +483,8 @@
     <span class="attr">#[inline]
     </span><span class="kw">unsafe fn </span>from_glib_full(ptr: <span class="kw-2">*mut </span><a href="../../pango_sys/struct.PangoAttrIterator.html">ffi::PangoAttrIterator</a>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            ptr: ptr::NonNull::new_unchecked(<a href="#176">ptr</a>),
-            list: PhantomData,
+            ptr: <a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html#method.new_unchecked">ptr::NonNull::new_unchecked</a>(<a href="#176">ptr</a>),
+            list: <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">PhantomData</a>,
         }
     }
 }

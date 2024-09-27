@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/async_initable.rs`."><title>async_initable.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/async_initable.rs`."><title>async_initable.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../gio/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">gio/</div>async_initable.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -349,14 +348,29 @@
 <a href="#274" id="274">274</a>
 <a href="#275" id="275">275</a>
 <a href="#276" id="276">276</a>
-</pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a></pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
-</span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, marker::PhantomData, <a href="https://doc.rust-lang.org/nightly/core/pin/struct.Pin.html">pin::Pin</a>};
+</span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">marker::PhantomData</a>, <a href="https://doc.rust-lang.org/nightly/core/pin/struct.Pin.html">pin::Pin</a>};
 
 <span class="kw">use </span>futures_util::TryFutureExt;
 <span class="kw">use </span>glib::{<a href="../../glib/object/trait.IsClass.html">object::IsClass</a>, <a href="../../glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="../../glib/object/struct.Object.html">Object</a>, <a href="../../glib/types/struct.Type.html">Type</a>};
 
-<span class="kw">use crate</span>::{<a href="lib.rs.html#118">prelude</a>::<span class="kw-2">*</span>, <a href="auto/async_initable.rs.html#9-123">AsyncInitable</a>, <a href="auto/cancellable.rs.html#7-85">Cancellable</a>};
+<span class="kw">use crate</span>::{<a href="lib.rs.html#121">prelude</a>::<span class="kw-2">*</span>, <a href="auto/async_initable.rs.html#9-123">AsyncInitable</a>, <a href="auto/cancellable.rs.html#8-86">Cancellable</a>};
 
 <span class="kw">impl </span><a href="auto/async_initable.rs.html#9-123">AsyncInitable</a> {
     <span class="comment">// rustdoc-stripper-ignore-next
@@ -372,11 +386,11 @@
         Q: FnOnce(<span class="prelude-ty">Result</span>&lt;O, <a href="../../glib/error/struct.Error.html">glib::Error</a>&gt;) + <span class="lifetime">'static</span>,
     &gt;(
         io_priority: <a href="../../glib/source/struct.Priority.html">glib::Priority</a>,
-        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#7-85">Cancellable</a>&gt;&gt;,
+        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#8-86">Cancellable</a>&gt;&gt;,
         callback: Q,
     ) {
-        <a href="#56-76"><span class="self">Self</span>::with_type</a>(<a href="../../glib/types/trait.StaticType.html">O::static_type</a>(), <a href="#23">io_priority</a>, <a href="#24">cancellable</a>, <span class="kw">move </span>|res| {
-            <a href="#25">callback</a>(<a href="#27">res</a>.map(|o| <span class="kw">unsafe </span>{ <a href="#28">o</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast</a>() }))
+        <a href="#56-80"><span class="self">Self</span>::with_type</a>(<a href="../../glib/types/trait.StaticType.html#tymethod.static_type">O::static_type</a>(), <a href="#23">io_priority</a>, <a href="#24">cancellable</a>, <span class="kw">move </span>|res| {
+            <a href="#25">callback</a>(<a href="#27">res</a>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map">map</a>(|o| <span class="kw">unsafe </span>{ <a href="#28">o</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast">unsafe_cast</a>() }))
         })
     }
 
@@ -390,9 +404,9 @@
     </span><span class="kw">pub fn </span>new_future&lt;O: <a href="../../glib/object/trait.IsClass.html">IsClass</a> + IsA&lt;<a href="../../glib/object/struct.Object.html">Object</a>&gt; + IsA&lt;<a href="auto/async_initable.rs.html#9-123">AsyncInitable</a>&gt;&gt;(
         io_priority: <a href="../../glib/source/struct.Priority.html">glib::Priority</a>,
     ) -&gt; Pin&lt;Box_&lt;<span class="kw">dyn </span>std::future::Future&lt;Output = <span class="prelude-ty">Result</span>&lt;O, <a href="../../glib/error/struct.Error.html">glib::Error</a>&gt;&gt; + <span class="lifetime">'static</span>&gt;&gt; {
-        Box::pin(
-            <a href="#85-108"><span class="self">Self</span>::with_type_future</a>(<a href="../../glib/types/trait.StaticType.html">O::static_type</a>(), <a href="#40">io_priority</a>)
-                .map_ok(|o| <span class="kw">unsafe </span>{ <a href="#44">o</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast</a>() }),
+        <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.pin">Box::pin</a>(
+            <a href="#89-116"><span class="self">Self</span>::with_type_future</a>(<a href="../../glib/types/trait.StaticType.html#tymethod.static_type">O::static_type</a>(), <a href="#40">io_priority</a>)
+                .map_ok(|o| <span class="kw">unsafe </span>{ <a href="#44">o</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast">unsafe_cast</a>() }),
         )
     }
 
@@ -407,7 +421,7 @@
     </span><span class="kw">pub fn </span>with_type&lt;Q: FnOnce(<span class="prelude-ty">Result</span>&lt;<a href="../../glib/object/struct.Object.html">Object</a>, <a href="../../glib/error/struct.Error.html">glib::Error</a>&gt;) + <span class="lifetime">'static</span>&gt;(
         type_: <a href="../../glib/types/struct.Type.html">Type</a>,
         io_priority: <a href="../../glib/source/struct.Priority.html">glib::Priority</a>,
-        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#7-85">Cancellable</a>&gt;&gt;,
+        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#8-86">Cancellable</a>&gt;&gt;,
         callback: Q,
     ) {
         <span class="kw">if </span>!type_.is_a(AsyncInitable::static_type()) {
@@ -415,13 +429,17 @@
         }
 
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>obj = Object::new_internal(<a href="#57">type_</a>, <span class="kw-2">&amp;mut </span>[]);
-            <a href="#67">obj</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
+            <span class="kw">let </span>obj = <a href="../../glib/object/struct.Object.html#method.new_internal">Object::new_internal</a>(<a href="#57">type_</a>, <span class="kw-2">&amp;mut </span>[]);
+            <a href="#67">obj</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
                 <a href="#58">io_priority</a>,
                 <a href="#59">cancellable</a>,
-                <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(@strong obj =&gt; <span class="kw">move </span>|res| {
-                    callback(res.map(|<span class="kw">_</span>| obj));
-                }),
+                <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(
+                    <span class="attr">#[strong]
+                    </span>obj,
+                    <span class="kw">move </span>|res| {
+                        callback(res.map(|<span class="kw">_</span>| obj));
+                    }
+                ),
             )
         };
     }
@@ -442,16 +460,20 @@
         }
 
         <span class="kw">unsafe </span>{
-            Box_::pin(<a href="gio_future.rs.html#38-45"><span class="kw">crate</span>::GioFuture::new</a>(
+            <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.pin">Box_::pin</a>(<a href="gio_future.rs.html#38-45"><span class="kw">crate</span>::GioFuture::new</a>(
                 <span class="kw-2">&amp;</span>(),
                 <span class="kw">move </span>|_obj, cancellable, send| {
-                    <span class="kw">let </span>obj = Object::new_internal(<a href="#86">type_</a>, <span class="kw-2">&amp;mut </span>[]);
-                    <a href="#97">obj</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
-                        <a href="#87">io_priority</a>,
-                        <span class="prelude-val">Some</span>(<a href="#96">cancellable</a>),
-                        <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(@strong obj =&gt; <span class="kw">move </span>|res| {
-                            send.resolve(res.map(|<span class="kw">_</span>| obj));
-                        }),
+                    <span class="kw">let </span>obj = <a href="../../glib/object/struct.Object.html#method.new_internal">Object::new_internal</a>(<a href="#90">type_</a>, <span class="kw-2">&amp;mut </span>[]);
+                    <a href="#101">obj</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
+                        <a href="#91">io_priority</a>,
+                        <span class="prelude-val">Some</span>(<a href="#100">cancellable</a>),
+                        <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(
+                            <span class="attr">#[strong]
+                            </span>obj,
+                            <span class="kw">move </span>|res| {
+                                send.resolve(res.map(|<span class="kw">_</span>| obj));
+                            }
+                        ),
                     );
                 },
             ))
@@ -469,7 +491,7 @@
         type_: <a href="../../glib/types/struct.Type.html">Type</a>,
         properties: <span class="kw-2">&amp;mut </span>[(<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="../../glib/value/struct.Value.html">glib::Value</a>)],
         io_priority: <a href="../../glib/source/struct.Priority.html">glib::Priority</a>,
-        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#7-85">Cancellable</a>&gt;&gt;,
+        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#8-86">Cancellable</a>&gt;&gt;,
         callback: Q,
     ) {
         <span class="kw">if </span>!type_.is_a(AsyncInitable::static_type()) {
@@ -477,13 +499,17 @@
         }
 
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>obj = Object::new_internal(<a href="#118">type_</a>, <a href="#119">properties</a>);
-            <a href="#129">obj</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
-                <a href="#120">io_priority</a>,
-                <a href="#121">cancellable</a>,
-                <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(@strong obj =&gt; <span class="kw">move </span>|res| {
-                    callback(res.map(|<span class="kw">_</span>| obj));
-                }),
+            <span class="kw">let </span>obj = <a href="../../glib/object/struct.Object.html#method.new_internal">Object::new_internal</a>(<a href="#126">type_</a>, <a href="#127">properties</a>);
+            <a href="#137">obj</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
+                <a href="#128">io_priority</a>,
+                <a href="#129">cancellable</a>,
+                <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(
+                    <span class="attr">#[strong]
+                    </span>obj,
+                    <span class="kw">move </span>|res| {
+                        callback(res.map(|<span class="kw">_</span>| obj));
+                    }
+                ),
             )
         };
     }
@@ -506,16 +532,20 @@
 
         <span class="kw">unsafe </span>{
             <span class="comment">// FIXME: object construction should ideally happen as part of the future
-            </span><span class="kw">let </span>obj = Object::new_internal(<a href="#148">type_</a>, <a href="#149">properties</a>);
-            Box_::pin(<a href="gio_future.rs.html#38-45"><span class="kw">crate</span>::GioFuture::new</a>(
-                <span class="kw-2">&amp;</span><a href="#158">obj</a>,
+            </span><span class="kw">let </span>obj = <a href="../../glib/object/struct.Object.html#method.new_internal">Object::new_internal</a>(<a href="#160">type_</a>, <a href="#161">properties</a>);
+            <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.pin">Box_::pin</a>(<a href="gio_future.rs.html#38-45"><span class="kw">crate</span>::GioFuture::new</a>(
+                <span class="kw-2">&amp;</span><a href="#170">obj</a>,
                 <span class="kw">move </span>|obj, cancellable, send| {
-                    <a href="#161">obj</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
-                        <a href="#150">io_priority</a>,
-                        <span class="prelude-val">Some</span>(<a href="#161">cancellable</a>),
-                        <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(@strong obj =&gt; <span class="kw">move </span>|res| {
-                            send.resolve(res.map(|<span class="kw">_</span>| obj));
-                        }),
+                    <a href="#173">obj</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>::&lt;<span class="self">Self</span>&gt;().<a href="auto/async_initable.rs.html#183-226">init_async</a>(
+                        <a href="#162">io_priority</a>,
+                        <span class="prelude-val">Some</span>(<a href="#173">cancellable</a>),
+                        <a class="macro" href="../../glib_macros/macro.clone.html">glib::clone!</a>(
+                            <span class="attr">#[strong]
+                            </span>obj,
+                            <span class="kw">move </span>|res| {
+                                send.resolve(res.map(|<span class="kw">_</span>| obj));
+                            }
+                        ),
                     );
                 },
             ))
@@ -526,7 +556,7 @@
     </span><span class="doccomment">/// Create a new object builder for a specific type.
     </span><span class="kw">pub fn </span>builder&lt;<span class="lifetime">'a</span>, O: IsA&lt;<a href="../../glib/object/struct.Object.html">Object</a>&gt; + <a href="../../glib/object/trait.IsClass.html">IsClass</a> + IsA&lt;<a href="auto/async_initable.rs.html#9-123">AsyncInitable</a>&gt;&gt;(
     ) -&gt; AsyncInitableBuilder&lt;<span class="lifetime">'a</span>, O&gt; {
-        <a href="#201-207">AsyncInitableBuilder::new</a>(<a href="../../glib/types/trait.StaticType.html">O::static_type</a>())
+        <a href="#217-223">AsyncInitableBuilder::new</a>(<a href="../../glib/types/trait.StaticType.html#tymethod.static_type">O::static_type</a>())
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
@@ -536,7 +566,7 @@
             <a class="macro" href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">"Type '{type_}' is not async initable"</span>);
         }
 
-        <a href="#201-207">AsyncInitableBuilder::new</a>(<a href="#183">type_</a>)
+        <a href="#217-223">AsyncInitableBuilder::new</a>(<a href="#199">type_</a>)
     }
 }
 
@@ -550,10 +580,10 @@
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>, O: IsA&lt;<a href="../../glib/object/struct.Object.html">Object</a>&gt; + <a href="../../glib/object/trait.IsClass.html">IsClass</a>&gt; AsyncInitableBuilder&lt;<span class="lifetime">'a</span>, O&gt; {
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>new(type_: <a href="../../glib/types/struct.Type.html">Type</a>) -&gt; <span class="self">Self </span>{
-        <a href="#193-197">AsyncInitableBuilder</a> {
-            <a href="#201">type_</a>,
+        <a href="#209-213">AsyncInitableBuilder</a> {
+            <a href="#217">type_</a>,
             properties: smallvec::SmallVec::new(),
-            phantom: PhantomData,
+            phantom: <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">PhantomData</a>,
         }
     }
 
@@ -561,24 +591,24 @@
     </span><span class="doccomment">/// Gets the type of this builder.
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>type_(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="../../glib/types/struct.Type.html">Type</a> {
-        <a class="self" href="#212">self</a>.type_
+        <a class="self" href="#228">self</a>.type_
     }
 
     <span class="comment">// rustdoc-stripper-ignore-next
     </span><span class="doccomment">/// Set property `name` to the given value `value`.
     </span><span class="attr">#[inline]
     </span><span class="kw">pub fn </span>property(<span class="self">self</span>, name: <span class="kw-2">&amp;</span><span class="lifetime">'a </span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <span class="kw">impl </span>Into&lt;<a href="../../glib/value/struct.Value.html">glib::Value</a>&gt;) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span><a href="#193-197">AsyncInitableBuilder</a> {
+        <span class="kw">let </span><a href="#209-213">AsyncInitableBuilder</a> {
             type_,
             <span class="kw-2">mut </span>properties,
             ..
-        } = <a class="self" href="#219">self</a>;
-        <a href="#222">properties</a>.push((<a href="#219">name</a>, <a href="#219">value</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html">into</a>()));
+        } = <a class="self" href="#235">self</a>;
+        <a href="#238">properties</a>.push((<a href="#235">name</a>, <a href="#235">value</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into">into</a>()));
 
-        <a href="#193-197">AsyncInitableBuilder</a> {
-            <a href="#221">type_</a>,
-            <a href="#222">properties</a>,
-            phantom: PhantomData,
+        <a href="#209-213">AsyncInitableBuilder</a> {
+            <a href="#237">type_</a>,
+            <a href="#238">properties</a>,
+            phantom: <a href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html">PhantomData</a>,
         }
     }
 
@@ -594,15 +624,15 @@
     </span><span class="kw">pub fn </span>build&lt;Q: FnOnce(<span class="prelude-ty">Result</span>&lt;O, <a href="../../glib/error/struct.Error.html">glib::Error</a>&gt;) + <span class="lifetime">'static</span>&gt;(
         <span class="kw-2">mut </span><span class="self">self</span>,
         io_priority: <a href="../../glib/source/struct.Priority.html">glib::Priority</a>,
-        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#7-85">Cancellable</a>&gt;&gt;,
+        cancellable: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="auto/cancellable.rs.html#8-86">Cancellable</a>&gt;&gt;,
         callback: Q,
     ) {
-        <a href="#117-138">AsyncInitable::with_mut_values</a>(
-            <a class="self" href="#244">self</a>.type_,
-            <span class="kw-2">&amp;mut </span><a class="self" href="#244">self</a>.properties,
-            <a href="#245">io_priority</a>,
-            <a href="#246">cancellable</a>,
-            <span class="kw">move </span>|res| <a href="#247">callback</a>(<a href="#254">res</a>.map(|o| <span class="kw">unsafe </span>{ <a href="#254">o</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast</a>() })),
+        <a href="#125-150">AsyncInitable::with_mut_values</a>(
+            <a class="self" href="#260">self</a>.type_,
+            <span class="kw-2">&amp;mut </span><a class="self" href="#260">self</a>.properties,
+            <a href="#261">io_priority</a>,
+            <a href="#262">cancellable</a>,
+            <span class="kw">move </span>|res| <a href="#263">callback</a>(<a href="#270">res</a>.<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.map">map</a>(|o| <span class="kw">unsafe </span>{ <a href="#270">o</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast">unsafe_cast</a>() })),
         );
     }
 
@@ -619,9 +649,9 @@
         <span class="kw-2">mut </span><span class="self">self</span>,
         io_priority: <a href="../../glib/source/struct.Priority.html">glib::Priority</a>,
     ) -&gt; Pin&lt;Box_&lt;<span class="kw">dyn </span>std::future::Future&lt;Output = <span class="prelude-ty">Result</span>&lt;O, <a href="../../glib/error/struct.Error.html">glib::Error</a>&gt;&gt; + <span class="lifetime">'static</span>&gt;&gt; {
-        Box::pin(
-            <a href="#147-172">AsyncInitable::with_mut_values_future</a>(<a class="self" href="#268">self</a>.type_, <span class="kw-2">&amp;mut </span><a class="self" href="#268">self</a>.properties, <a href="#269">io_priority</a>)
-                .map_ok(|o| <span class="kw">unsafe </span>{ <a href="#273">o</a>.<a href="../../glib/object/trait.Cast.html">unsafe_cast</a>() }),
+        <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.pin">Box::pin</a>(
+            <a href="#159-188">AsyncInitable::with_mut_values_future</a>(<a class="self" href="#284">self</a>.type_, <span class="kw-2">&amp;mut </span><a class="self" href="#284">self</a>.properties, <a href="#285">io_priority</a>)
+                .map_ok(|o| <span class="kw">unsafe </span>{ <a href="#289">o</a>.<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast">unsafe_cast</a>() }),
         )
     }
 }

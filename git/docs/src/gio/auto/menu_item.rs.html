@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/auto/menu_item.rs`."><title>menu_item.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/auto/menu_item.rs`."><title>menu_item.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../gio/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">gio/auto/</div>menu_item.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -519,15 +518,14 @@
 <a href="#444" id="444">444</a>
 <a href="#445" id="445">445</a>
 <a href="#446" id="446">446</a>
-<a href="#447" id="447">447</a>
-</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+<a href="#447" id="447">447</a></pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use crate</span>::{<a href="icon.rs.html#7-48">Icon</a>, <a href="menu_model.rs.html#13-167">MenuModel</a>};
+</span><span class="kw">use crate</span>::{<a href="../../../gio_sys/index.html">ffi</a>, <a href="icon.rs.html#8-49">Icon</a>, <a href="menu_model.rs.html#13-170">MenuModel</a>};
 <span class="kw">use </span>glib::{<a href="../../../glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="../../../glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 
-<a class="macro" href="../../../glib/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="../../../glib/macro.wrapper.html">glib::wrapper!</a> {
     <span class="doccomment">/// #GMenuItem is an opaque structure type.  You must access it using the
     /// functions below.
     ///
@@ -562,9 +560,9 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_new"</span>)]
     </span><span class="kw">pub fn </span>new(label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, detailed_action: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) -&gt; <a href="#8-21">MenuItem</a> {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_menu_item_new(
-                <a href="#41">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#41">detailed_action</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_menu_item_new.html">ffi::g_menu_item_new</a>(
+                <a href="#41">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#41">detailed_action</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -584,10 +582,10 @@
     /// a new #GMenuItem.
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_new_from_model"</span>)]
     #[doc(alias = <span class="string">"new_from_model"</span>)]
-    </span><span class="kw">pub fn </span>from_model(model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-167">MenuModel</a>&gt;, item_index: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="#8-21">MenuItem</a> {
+    </span><span class="kw">pub fn </span>from_model(model: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-170">MenuModel</a>&gt;, item_index: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="#8-21">MenuItem</a> {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_menu_item_new_from_model(
-                <a href="#65">model</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_menu_item_new_from_model.html">ffi::g_menu_item_new_from_model</a>(
+                <a href="#65">model</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#65">item_index</a>,
             ))
         }
@@ -603,7 +601,7 @@
     /// the menu that @menu_item is added to.
     ///
     /// Visual separation is typically displayed between two non-empty
-    /// sections.  If @label is non-[`None`] then it will be encorporated into
+    /// sections.  If @label is non-[`None`] then it will be incorporated into
     /// this visual indication.  This allows for labeled subsections of a
     /// menu.
     ///
@@ -664,11 +662,11 @@
     ///
     /// a new #GMenuItem
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_new_section"</span>)]
-    </span><span class="kw">pub fn </span>new_section(label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, section: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-167">MenuModel</a>&gt;) -&gt; <a href="#8-21">MenuItem</a> {
+    </span><span class="kw">pub fn </span>new_section(label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, section: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-170">MenuModel</a>&gt;) -&gt; <a href="#8-21">MenuItem</a> {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_menu_item_new_section(
-                <a href="#145">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#145">section</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_menu_item_new_section.html">ffi::g_menu_item_new_section</a>(
+                <a href="#145">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#145">section</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -686,11 +684,11 @@
     ///
     /// a new #GMenuItem
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_new_submenu"</span>)]
-    </span><span class="kw">pub fn </span>new_submenu(label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, submenu: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-167">MenuModel</a>&gt;) -&gt; <a href="#8-21">MenuItem</a> {
+    </span><span class="kw">pub fn </span>new_submenu(label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, submenu: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-170">MenuModel</a>&gt;) -&gt; <a href="#8-21">MenuItem</a> {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_menu_item_new_submenu(
-                <a href="#167">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#167">submenu</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_menu_item_new_submenu.html">ffi::g_menu_item_new_submenu</a>(
+                <a href="#167">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#167">submenu</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -722,10 +720,10 @@
         expected_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../glib/variant_type/struct.VariantTy.html">glib::VariantTy</a>&gt;,
     ) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../glib/variant/struct.Variant.html">glib::Variant</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_menu_item_get_attribute_value(
-                <a class="self" href="#198">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#199">attribute</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#200">expected_type</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_menu_item_get_attribute_value.html">ffi::g_menu_item_get_attribute_value</a>(
+                <a class="self" href="#198">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#199">attribute</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#200">expected_type</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -739,11 +737,11 @@
     /// the link, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_get_link"</span>)]
     #[doc(alias = <span class="string">"get_link"</span>)]
-    </span><span class="kw">pub fn </span>link(<span class="kw-2">&amp;</span><span class="self">self</span>, link: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="menu_model.rs.html#13-167">MenuModel</a>&gt; {
+    </span><span class="kw">pub fn </span>link(<span class="kw-2">&amp;</span><span class="self">self</span>, link: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="menu_model.rs.html#13-170">MenuModel</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_menu_item_get_link(
-                <a class="self" href="#220">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#220">link</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_menu_item_get_link.html">ffi::g_menu_item_get_link</a>(
+                <a class="self" href="#220">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#220">link</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -800,10 +798,10 @@
         target_value: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../glib/variant/struct.Variant.html">glib::Variant</a>&gt;,
     ) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_action_and_target_value(
-                <a class="self" href="#276">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#277">action</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#278">target_value</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_menu_item_set_action_and_target_value.html">ffi::g_menu_item_set_action_and_target_value</a>(
+                <a class="self" href="#276">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#277">action</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#278">target_value</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -839,10 +837,10 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_set_attribute_value"</span>)]
     </span><span class="kw">pub fn </span>set_attribute_value(<span class="kw-2">&amp;</span><span class="self">self</span>, attribute: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, value: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="../../../glib/variant/struct.Variant.html">glib::Variant</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_attribute_value(
-                <a class="self" href="#318">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#318">attribute</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#318">value</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_menu_item_set_attribute_value.html">ffi::g_menu_item_set_attribute_value</a>(
+                <a class="self" href="#318">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#318">attribute</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#318">value</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -863,9 +861,9 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_set_detailed_action"</span>)]
     </span><span class="kw">pub fn </span>set_detailed_action(<span class="kw-2">&amp;</span><span class="self">self</span>, detailed_action: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_detailed_action(
-                <a class="self" href="#342">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#342">detailed_action</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_menu_item_set_detailed_action.html">ffi::g_menu_item_set_detailed_action</a>(
+                <a class="self" href="#342">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#342">detailed_action</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -885,9 +883,9 @@
     /// ## `icon`
     /// a #GIcon, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_set_icon"</span>)]
-    </span><span class="kw">pub fn </span>set_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="icon.rs.html#7-48">Icon</a>&gt;) {
+    </span><span class="kw">pub fn </span>set_icon(<span class="kw-2">&amp;</span><span class="self">self</span>, icon: <span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="icon.rs.html#8-49">Icon</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_icon(<a class="self" href="#366">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#366">icon</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            <a href="../../../gio_sys/fn.g_menu_item_set_icon.html">ffi::g_menu_item_set_icon</a>(<a class="self" href="#366">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#366">icon</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -900,7 +898,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_set_label"</span>)]
     </span><span class="kw">pub fn </span>set_label(<span class="kw-2">&amp;</span><span class="self">self</span>, label: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_label(<a class="self" href="#379">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#379">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            <a href="../../../gio_sys/fn.g_menu_item_set_label.html">ffi::g_menu_item_set_label</a>(<a class="self" href="#379">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#379">label</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
         }
     }
 
@@ -919,12 +917,12 @@
     /// ## `model`
     /// the #GMenuModel to link to (or [`None`] to unset)
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_set_link"</span>)]
-    </span><span class="kw">pub fn </span>set_link(<span class="kw-2">&amp;</span><span class="self">self</span>, link: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-167">MenuModel</a>&gt;&gt;) {
+    </span><span class="kw">pub fn </span>set_link(<span class="kw-2">&amp;</span><span class="self">self</span>, link: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, model: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-170">MenuModel</a>&gt;&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_link(
-                <a class="self" href="#400">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#400">link</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#400">model</a>.map(|p| <a href="#405">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_menu_item_set_link.html">ffi::g_menu_item_set_link</a>(
+                <a class="self" href="#400">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#400">link</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#400">model</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.map">map</a>(|p| <a href="#405">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>()).<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -939,11 +937,11 @@
     /// ## `section`
     /// a #GMenuModel, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_set_section"</span>)]
-    </span><span class="kw">pub fn </span>set_section(<span class="kw-2">&amp;</span><span class="self">self</span>, section: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-167">MenuModel</a>&gt;&gt;) {
+    </span><span class="kw">pub fn </span>set_section(<span class="kw-2">&amp;</span><span class="self">self</span>, section: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-170">MenuModel</a>&gt;&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_section(
-                <a class="self" href="#420">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#420">section</a>.map(|p| <a href="#424">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_menu_item_set_section.html">ffi::g_menu_item_set_section</a>(
+                <a class="self" href="#420">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#420">section</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.map">map</a>(|p| <a href="#424">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>()).<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -958,11 +956,11 @@
     /// ## `submenu`
     /// a #GMenuModel, or [`None`]
     </span><span class="attr">#[doc(alias = <span class="string">"g_menu_item_set_submenu"</span>)]
-    </span><span class="kw">pub fn </span>set_submenu(<span class="kw-2">&amp;</span><span class="self">self</span>, submenu: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-167">MenuModel</a>&gt;&gt;) {
+    </span><span class="kw">pub fn </span>set_submenu(<span class="kw-2">&amp;</span><span class="self">self</span>, submenu: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span>IsA&lt;<a href="menu_model.rs.html#13-170">MenuModel</a>&gt;&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_menu_item_set_submenu(
-                <a class="self" href="#439">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#439">submenu</a>.map(|p| <a href="#443">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>()).<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_menu_item_set_submenu.html">ffi::g_menu_item_set_submenu</a>(
+                <a class="self" href="#439">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#439">submenu</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.map">map</a>(|p| <a href="#443">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>()).<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }

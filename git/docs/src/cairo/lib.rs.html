@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cairo/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cairo" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cairo/src/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="cairo" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../cairo/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cairo/</div>lib.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -422,14 +421,13 @@
 <a href="#347" id="347">347</a>
 <a href="#348" id="348">348</a>
 <a href="#349" id="349">349</a>
-<a href="#350" id="350">350</a>
-</pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+<a href="#350" id="350">350</a></pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="attr">#![cfg_attr(docsrs, feature(doc_cfg))]
 #![allow(clippy::missing_safety_doc)]
 #![doc = <span class="macro">include_str!</span>(<span class="string">"../README.md"</span>)]
 
-</span><span class="kw">pub use </span><a href="../../cairo_sys/index.html">ffi</a>;
+</span><span class="kw">pub use </span><a href="../../cairo_sys/index.html">cairo_sys</a> <span class="kw">as </span>ffi;
 <span class="attr">#[cfg(feature = <span class="string">"freetype"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"freetype"</span>)))]
 </span><span class="kw">pub use </span>freetype;
@@ -440,7 +438,7 @@
 <span class="comment">// Helper macros for our GValue related trait impls
 </span><span class="attr">#[cfg(feature = <span class="string">"use_glib"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"use_glib"</span>)))]
-</span><span class="macro">macro_rules! </span>gvalue_impl_inner {
+</span><span class="macro">macro_rules!</span> gvalue_impl_inner {
     (<span class="macro-nonterminal">$name</span>:ty, <span class="macro-nonterminal">$ffi_name</span>:ty, <span class="macro-nonterminal">$get_type</span>:expr) =&gt; {
         <span class="attr">#[allow(unused_imports)]
         </span><span class="kw">use </span>glib::translate::<span class="kw-2">*</span>;
@@ -462,7 +460,7 @@
 
 <span class="attr">#[cfg(feature = <span class="string">"use_glib"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"use_glib"</span>)))]
-</span><span class="macro">macro_rules! </span>gvalue_impl {
+</span><span class="macro">macro_rules!</span> gvalue_impl {
     (<span class="macro-nonterminal">$name</span>:ty, <span class="macro-nonterminal">$ffi_name</span>:ty, <span class="macro-nonterminal">$get_type</span>:expr) =&gt; {
         <span class="macro">gvalue_impl_inner!</span>(<span class="macro-nonterminal">$name</span>, <span class="macro-nonterminal">$ffi_name</span>, <span class="macro-nonterminal">$get_type</span>);
 
@@ -548,7 +546,7 @@
 
 <span class="attr">#[cfg(feature = <span class="string">"use_glib"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"use_glib"</span>)))]
-</span><span class="macro">macro_rules! </span>gvalue_impl_inline {
+</span><span class="macro">macro_rules!</span> gvalue_impl_inline {
     (<span class="macro-nonterminal">$name</span>:ty, <span class="macro-nonterminal">$ffi_name</span>:ty, <span class="macro-nonterminal">$get_type</span>:expr) =&gt; {
         <span class="macro">gvalue_impl_inner!</span>(<span class="macro-nonterminal">$name</span>, <span class="macro-nonterminal">$ffi_name</span>, <span class="macro-nonterminal">$get_type</span>);
 
@@ -627,10 +625,10 @@
 
 <span class="attr">#[cfg(feature = <span class="string">"pdf"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"pdf"</span>)))]
-</span><span class="kw">pub use </span><a href="pdf.rs.html#29">pdf::PdfSurface</a>;
+</span><span class="kw">pub use </span><a href="pdf.rs.html#28">pdf::PdfSurface</a>;
 <span class="attr">#[cfg(feature = <span class="string">"ps"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"ps"</span>)))]
-</span><span class="kw">pub use </span><a href="ps.rs.html#27">ps::PsSurface</a>;
+</span><span class="kw">pub use </span><a href="ps.rs.html#26">ps::PsSurface</a>;
 <span class="attr">#[cfg(any(feature = <span class="string">"pdf"</span>, feature = <span class="string">"svg"</span>, feature = <span class="string">"ps"</span>))]
 #[cfg_attr(
     docsrs,
@@ -639,7 +637,7 @@
 </span><span class="kw">pub use </span><a href="stream.rs.html#157-160">stream::StreamWithError</a>;
 <span class="attr">#[cfg(feature = <span class="string">"svg"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"svg"</span>)))]
-</span><span class="kw">pub use </span><a href="svg.rs.html#31">svg::SvgSurface</a>;
+</span><span class="kw">pub use </span><a href="svg.rs.html#30">svg::SvgSurface</a>;
 <span class="attr">#[cfg(feature = <span class="string">"xcb"</span>)]
 #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"xcb"</span>)))]
 </span><span class="kw">pub use </span>xcb::{
@@ -648,24 +646,24 @@
 };
 
 <span class="kw">pub use crate</span>::{
-    context::{<a href="context.rs.html#58">Context</a>, <a href="context.rs.html#18-20">RectangleList</a>},
+    context::{<a href="context.rs.html#57">Context</a>, <a href="context.rs.html#16-18">RectangleList</a>},
     <a href="device.rs.html#32">device::Device</a>,
     <a href="#258">enums</a>::<span class="kw-2">*</span>,
-    error::{<a href="error.rs.html#270-275">BorrowError</a>, <a href="error.rs.html#10-150">Error</a>, <a href="error.rs.html#262-267">IoError</a>, <span class="prelude-ty">Result</span>},
+    error::{<a href="error.rs.html#309-312">BorrowError</a>, <a href="error.rs.html#9-104">Error</a>, <a href="error.rs.html#273-276">IoError</a>, <span class="prelude-ty">Result</span>},
     font::{
-        <a href="enums.rs.html#59-80">Antialias</a>, <a href="font/font_extents.rs.html#8">FontExtents</a>, <a href="font/font_face.rs.html#20-30">FontFace</a>, <a href="font/font_options.rs.html#17-32">FontOptions</a>, <a href="enums.rs.html#631-640">FontSlant</a>, <a href="enums.rs.html#749-766">FontType</a>, <a href="enums.rs.html#672-679">FontWeight</a>, <a href="font/glyph.rs.html#8">Glyph</a>,
-        <a href="enums.rs.html#907-916">HintMetrics</a>, <a href="enums.rs.html#858-871">HintStyle</a>, <a href="font/scaled_font.rs.html#14-24">ScaledFont</a>, <a href="enums.rs.html#806-819">SubpixelOrder</a>, <a href="font/text_cluster.rs.html#8">TextCluster</a>, <a href="font/text_extents.rs.html#8">TextExtents</a>, <a href="font/user_fonts.rs.html#23">UserFontFace</a>,
+        <a href="enums.rs.html#59-80">Antialias</a>, <a href="font/font_extents.rs.html#9">FontExtents</a>, <a href="font/font_face.rs.html#20-30">FontFace</a>, <a href="font/font_options.rs.html#19-34">FontOptions</a>, <a href="enums.rs.html#631-640">FontSlant</a>, <a href="enums.rs.html#749-766">FontType</a>, <a href="enums.rs.html#672-679">FontWeight</a>, <a href="font/glyph.rs.html#9">Glyph</a>,
+        <a href="enums.rs.html#907-916">HintMetrics</a>, <a href="enums.rs.html#858-871">HintStyle</a>, <a href="font/scaled_font.rs.html#14-24">ScaledFont</a>, <a href="enums.rs.html#806-819">SubpixelOrder</a>, <a href="font/text_cluster.rs.html#9">TextCluster</a>, <a href="font/text_extents.rs.html#9">TextExtents</a>, <a href="font/user_fonts.rs.html#23">UserFontFace</a>,
     },
-    image_surface::{<a href="image_surface.rs.html#15">ImageSurface</a>, <a href="image_surface.rs.html#232-236">ImageSurfaceData</a>, <a href="image_surface.rs.html#173-175">ImageSurfaceDataOwned</a>},
+    image_surface::{<a href="image_surface.rs.html#14">ImageSurface</a>, <a href="image_surface.rs.html#231-235">ImageSurfaceData</a>, <a href="image_surface.rs.html#172-174">ImageSurfaceDataOwned</a>},
     <a href="matrices.rs.html#12">matrices::Matrix</a>,
-    paths::{<a href="paths.rs.html#8">Path</a>, <a href="paths.rs.html#54-59">PathSegment</a>, <a href="paths.rs.html#61-65">PathSegments</a>},
+    paths::{<a href="paths.rs.html#9">Path</a>, <a href="paths.rs.html#55-60">PathSegment</a>, <a href="paths.rs.html#62-66">PathSegments</a>},
     patterns::{
-        <a href="patterns.rs.html#213">Gradient</a>, <a href="patterns.rs.html#299">LinearGradient</a>, <a href="patterns.rs.html#395">Mesh</a>, <a href="patterns.rs.html#15-17">Pattern</a>, <a href="patterns.rs.html#333">RadialGradient</a>, <a href="patterns.rs.html#169">SolidPattern</a>, <a href="patterns.rs.html#371">SurfacePattern</a>,
+        <a href="patterns.rs.html#212">Gradient</a>, <a href="patterns.rs.html#298">LinearGradient</a>, <a href="patterns.rs.html#394">Mesh</a>, <a href="patterns.rs.html#14-16">Pattern</a>, <a href="patterns.rs.html#332">RadialGradient</a>, <a href="patterns.rs.html#168">SolidPattern</a>, <a href="patterns.rs.html#370">SurfacePattern</a>,
     },
     <a href="recording_surface.rs.html#10">recording_surface::RecordingSurface</a>,
-    <a href="rectangle.rs.html#13">rectangle::Rectangle</a>,
-    <a href="rectangle_int.rs.html#13">rectangle_int::RectangleInt</a>,
-    <a href="region.rs.html#14">region::Region</a>,
+    <a href="rectangle.rs.html#14">rectangle::Rectangle</a>,
+    <a href="rectangle_int.rs.html#15">rectangle_int::RectangleInt</a>,
+    <a href="region.rs.html#15">region::Region</a>,
     surface::{<a href="surface.rs.html#392-395">MappedImageSurface</a>, <a href="surface.rs.html#19">Surface</a>},
     <a href="user_data.rs.html#7-10">user_data::UserDataKey</a>,
 };
@@ -673,24 +671,24 @@
 <span class="attr">#[macro_use]
 </span><span class="kw">mod </span><a href="surface_macros.rs.html#4-125">surface_macros</a>;
 <span class="attr">#[macro_use]
-</span><span class="kw">mod </span><a href="user_data.rs.html#3-142">user_data</a>;
+</span><span class="kw">mod </span><a href="user_data.rs.html#3-148">user_data</a>;
 <span class="kw">mod </span><a href="constants.rs.html#3-33">constants</a>;
 <span class="kw">pub use </span><a href="#252"><span class="kw">crate</span>::constants</a>::<span class="kw-2">*</span>;
 <span class="kw">mod </span><a href="utils.rs.html#3-89">utils</a>;
 <span class="kw">pub use </span><span class="kw">crate</span>::utils::{<a href="utils.rs.html#17-19">debug_reset_static_data</a>, <a href="utils.rs.html#30-37">version_string</a>, <a href="utils.rs.html#40-44">Version</a>};
-<span class="kw">mod </span><a href="context.rs.html#3-1006">context</a>;
+<span class="kw">mod </span><a href="context.rs.html#3-1005">context</a>;
 <span class="kw">mod </span><a href="device.rs.html#3-389">device</a>;
 <span class="kw">mod </span><a href="enums.rs.html#3-1682">enums</a>;
-<span class="kw">mod </span><a href="error.rs.html#3-277">error</a>;
+<span class="kw">mod </span><a href="error.rs.html#3-338">error</a>;
 <span class="kw">mod </span><a href="font/mod.rs.html#3-45">font</a>;
-<span class="kw">mod </span><a href="image_surface.rs.html#3-364">image_surface</a>;
+<span class="kw">mod </span><a href="image_surface.rs.html#3-363">image_surface</a>;
 <span class="kw">mod </span><a href="matrices.rs.html#3-295">matrices</a>;
-<span class="kw">mod </span><a href="paths.rs.html#3-214">paths</a>;
-<span class="kw">mod </span><a href="patterns.rs.html#3-556">patterns</a>;
+<span class="kw">mod </span><a href="paths.rs.html#3-215">paths</a>;
+<span class="kw">mod </span><a href="patterns.rs.html#3-555">patterns</a>;
 <span class="kw">mod </span><a href="recording_surface.rs.html#3-60">recording_surface</a>;
-<span class="kw">mod </span><a href="rectangle.rs.html#3-176">rectangle</a>;
-<span class="kw">mod </span><a href="rectangle_int.rs.html#3-146">rectangle_int</a>;
-<span class="kw">mod </span><a href="region.rs.html#3-282">region</a>;
+<span class="kw">mod </span><a href="rectangle.rs.html#3-177">rectangle</a>;
+<span class="kw">mod </span><a href="rectangle_int.rs.html#3-148">rectangle_int</a>;
+<span class="kw">mod </span><a href="region.rs.html#3-283">region</a>;
 <span class="kw">mod </span><a href="surface.rs.html#3-440">surface</a>;
 <span class="attr">#[cfg(feature = <span class="string">"png"</span>)]
 </span><span class="kw">mod </span><a href="surface_png.rs.html#3-225">surface_png</a>;
@@ -701,11 +699,11 @@
 #[macro_use]
 </span><span class="kw">mod </span><a href="stream.rs.html#3-276">stream</a>;
 <span class="attr">#[cfg(feature = <span class="string">"pdf"</span>)]
-</span><span class="kw">mod </span><a href="pdf.rs.html#3-293">pdf</a>;
+</span><span class="kw">mod </span><a href="pdf.rs.html#3-292">pdf</a>;
 <span class="attr">#[cfg(feature = <span class="string">"ps"</span>)]
-</span><span class="kw">mod </span><a href="ps.rs.html#3-251">ps</a>;
+</span><span class="kw">mod </span><a href="ps.rs.html#3-250">ps</a>;
 <span class="attr">#[cfg(feature = <span class="string">"svg"</span>)]
-</span><span class="kw">mod </span><a href="svg.rs.html#3-271">svg</a>;
+</span><span class="kw">mod </span><a href="svg.rs.html#3-270">svg</a>;
 
 <span class="attr">#[cfg(target_os = <span class="string">"macos"</span>)]
 </span><span class="kw">mod </span>quartz_surface;

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/auto/mount_operation.rs`."><title>mount_operation.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/auto/mount_operation.rs`."><title>mount_operation.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../gio/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">gio/auto/</div>mount_operation.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -984,11 +983,23 @@
 <a href="#909" id="909">909</a>
 <a href="#910" id="910">910</a>
 <a href="#911" id="911">911</a>
-</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+<a href="#912" id="912">912</a>
+<a href="#913" id="913">913</a>
+<a href="#914" id="914">914</a>
+<a href="#915" id="915">915</a>
+<a href="#916" id="916">916</a>
+<a href="#917" id="917">917</a>
+<a href="#918" id="918">918</a>
+<a href="#919" id="919">919</a>
+<a href="#920" id="920">920</a>
+<a href="#921" id="921">921</a>
+<a href="#922" id="922">922</a>
+<a href="#923" id="923">923</a>
+<a href="#924" id="924">924</a></pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use crate</span>::{<a href="flags.rs.html#237-263">AskPasswordFlags</a>, <a href="enums.rs.html#2156-2171">MountOperationResult</a>, <a href="enums.rs.html#2486-2498">PasswordSave</a>};
+</span><span class="kw">use crate</span>::{<a href="../../../gio_sys/index.html">ffi</a>, <a href="flags.rs.html#238-264">AskPasswordFlags</a>, <a href="enums.rs.html#2157-2172">MountOperationResult</a>, <a href="enums.rs.html#2487-2499">PasswordSave</a>};
 <span class="kw">use </span>glib::{
     <a href="../../../glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
     signal::{<a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="../../../glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
@@ -996,7 +1007,7 @@
 };
 <span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">std::boxed::Box</a> <span class="kw">as </span>Box_;
 
-<a class="macro" href="../../../glib/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="../../../glib/macro.wrapper.html">glib::wrapper!</a> {
     <span class="doccomment">/// `GMountOperation` provides a mechanism for interacting with the user.
     /// It can be used for authenticating mountable operations, such as loop
     /// mounting files, hard drive partitions or server locations. It can
@@ -1183,7 +1194,7 @@
     /// a #GMountOperation.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_new"</span>)]
     </span><span class="kw">pub fn </span>new() -&gt; <a href="#13-188">MountOperation</a> {
-        <span class="kw">unsafe </span>{ from_glib_full(ffi::g_mount_operation_new()) }
+        <span class="kw">unsafe </span>{ <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_mount_operation_new.html">ffi::g_mount_operation_new</a>()) }
     }
 }
 
@@ -1212,10 +1223,11 @@
     /// [`true`] if mount operation is anonymous.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_get_anonymous"</span>)]
     #[doc(alias = <span class="string">"get_anonymous"</span>)]
+    #[doc(alias = <span class="string">"anonymous"</span>)]
     </span><span class="kw">fn </span>is_anonymous(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_mount_operation_get_anonymous(
-                <a class="self" href="#229">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_mount_operation_get_anonymous.html">ffi::g_mount_operation_get_anonymous</a>(
+                <a class="self" href="#230">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1229,7 +1241,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_get_choice"</span>)]
     #[doc(alias = <span class="string">"get_choice"</span>)]
     </span><span class="kw">fn </span>choice(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-        <span class="kw">unsafe </span>{ ffi::g_mount_operation_get_choice(<a class="self" href="#245">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ <a href="../../../gio_sys/fn.g_mount_operation_get_choice.html">ffi::g_mount_operation_get_choice</a>(<a class="self" href="#246">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Gets the domain of the mount operation.
@@ -1241,8 +1253,8 @@
     #[doc(alias = <span class="string">"get_domain"</span>)]
     </span><span class="kw">fn </span>domain(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::g_mount_operation_get_domain(
-                <a class="self" href="#256">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../../gio_sys/fn.g_mount_operation_get_domain.html">ffi::g_mount_operation_get_domain</a>(
+                <a class="self" href="#257">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1257,10 +1269,11 @@
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_58"</span>)))]
     #[doc(alias = <span class="string">"g_mount_operation_get_is_tcrypt_hidden_volume"</span>)]
     #[doc(alias = <span class="string">"get_is_tcrypt_hidden_volume"</span>)]
+    #[doc(alias = <span class="string">"is-tcrypt-hidden-volume"</span>)]
     </span><span class="kw">fn </span>is_tcrypt_hidden_volume(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_mount_operation_get_is_tcrypt_hidden_volume(
-                <a class="self" href="#274">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_mount_operation_get_is_tcrypt_hidden_volume.html">ffi::g_mount_operation_get_is_tcrypt_hidden_volume</a>(
+                <a class="self" href="#276">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1275,10 +1288,11 @@
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_58"</span>)))]
     #[doc(alias = <span class="string">"g_mount_operation_get_is_tcrypt_system_volume"</span>)]
     #[doc(alias = <span class="string">"get_is_tcrypt_system_volume"</span>)]
+    #[doc(alias = <span class="string">"is-tcrypt-system-volume"</span>)]
     </span><span class="kw">fn </span>is_tcrypt_system_volume(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_mount_operation_get_is_tcrypt_system_volume(
-                <a class="self" href="#292">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_mount_operation_get_is_tcrypt_system_volume.html">ffi::g_mount_operation_get_is_tcrypt_system_volume</a>(
+                <a class="self" href="#295">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1292,8 +1306,8 @@
     #[doc(alias = <span class="string">"get_password"</span>)]
     </span><span class="kw">fn </span>password(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::g_mount_operation_get_password(
-                <a class="self" href="#307">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../../gio_sys/fn.g_mount_operation_get_password.html">ffi::g_mount_operation_get_password</a>(
+                <a class="self" href="#310">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1305,10 +1319,11 @@
     /// a #GPasswordSave flag.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_get_password_save"</span>)]
     #[doc(alias = <span class="string">"get_password_save"</span>)]
-    </span><span class="kw">fn </span>password_save(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2486-2498">PasswordSave</a> {
+    #[doc(alias = <span class="string">"password-save"</span>)]
+    </span><span class="kw">fn </span>password_save(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2487-2499">PasswordSave</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_mount_operation_get_password_save(
-                <a class="self" href="#322">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_mount_operation_get_password_save.html">ffi::g_mount_operation_get_password_save</a>(
+                <a class="self" href="#326">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1323,7 +1338,7 @@
     #[doc(alias = <span class="string">"g_mount_operation_get_pim"</span>)]
     #[doc(alias = <span class="string">"get_pim"</span>)]
     </span><span class="kw">fn </span>pim(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> {
-        <span class="kw">unsafe </span>{ ffi::g_mount_operation_get_pim(<a class="self" href="#339">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ <a href="../../../gio_sys/fn.g_mount_operation_get_pim.html">ffi::g_mount_operation_get_pim</a>(<a class="self" href="#343">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Get the user name from the mount operation.
@@ -1335,8 +1350,8 @@
     #[doc(alias = <span class="string">"get_username"</span>)]
     </span><span class="kw">fn </span>username(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::g_mount_operation_get_username(
-                <a class="self" href="#350">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../../gio_sys/fn.g_mount_operation_get_username.html">ffi::g_mount_operation_get_username</a>(
+                <a class="self" href="#354">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             ))
         }
     }
@@ -1345,9 +1360,9 @@
     /// ## `result`
     /// a #GMountOperationResult
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_reply"</span>)]
-    </span><span class="kw">fn </span>reply(<span class="kw-2">&amp;</span><span class="self">self</span>, result: <a href="enums.rs.html#2156-2171">MountOperationResult</a>) {
+    </span><span class="kw">fn </span>reply(<span class="kw-2">&amp;</span><span class="self">self</span>, result: <a href="enums.rs.html#2157-2172">MountOperationResult</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_reply(<a class="self" href="#362">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#362">result</a>.<a href="../../../glib/translate/trait.IntoGlib.html">into_glib</a>());
+            <a href="../../../gio_sys/fn.g_mount_operation_reply.html">ffi::g_mount_operation_reply</a>(<a class="self" href="#366">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#366">result</a>.<a href="../../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>());
         }
     }
 
@@ -1355,11 +1370,12 @@
     /// ## `anonymous`
     /// boolean value.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_set_anonymous"</span>)]
+    #[doc(alias = <span class="string">"anonymous"</span>)]
     </span><span class="kw">fn </span>set_anonymous(<span class="kw-2">&amp;</span><span class="self">self</span>, anonymous: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_anonymous(
-                <a class="self" href="#372">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#372">anonymous</a>.<a href="../../../glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="../../../gio_sys/fn.g_mount_operation_set_anonymous.html">ffi::g_mount_operation_set_anonymous</a>(
+                <a class="self" href="#377">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#377">anonymous</a>.<a href="../../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
             );
         }
     }
@@ -1368,9 +1384,10 @@
     /// ## `choice`
     /// an integer.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_set_choice"</span>)]
+    #[doc(alias = <span class="string">"choice"</span>)]
     </span><span class="kw">fn </span>set_choice(<span class="kw-2">&amp;</span><span class="self">self</span>, choice: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_choice(<a class="self" href="#385">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#385">choice</a>);
+            <a href="../../../gio_sys/fn.g_mount_operation_set_choice.html">ffi::g_mount_operation_set_choice</a>(<a class="self" href="#391">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#391">choice</a>);
         }
     }
 
@@ -1378,11 +1395,12 @@
     /// ## `domain`
     /// the domain to set.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_set_domain"</span>)]
+    #[doc(alias = <span class="string">"domain"</span>)]
     </span><span class="kw">fn </span>set_domain(<span class="kw-2">&amp;</span><span class="self">self</span>, domain: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_domain(
-                <a class="self" href="#395">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#395">domain</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_mount_operation_set_domain.html">ffi::g_mount_operation_set_domain</a>(
+                <a class="self" href="#402">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#402">domain</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -1393,11 +1411,12 @@
     </span><span class="attr">#[cfg(feature = <span class="string">"v2_58"</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_58"</span>)))]
     #[doc(alias = <span class="string">"g_mount_operation_set_is_tcrypt_hidden_volume"</span>)]
+    #[doc(alias = <span class="string">"is-tcrypt-hidden-volume"</span>)]
     </span><span class="kw">fn </span>set_is_tcrypt_hidden_volume(<span class="kw-2">&amp;</span><span class="self">self</span>, hidden_volume: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_is_tcrypt_hidden_volume(
-                <a class="self" href="#410">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#410">hidden_volume</a>.<a href="../../../glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="../../../gio_sys/fn.g_mount_operation_set_is_tcrypt_hidden_volume.html">ffi::g_mount_operation_set_is_tcrypt_hidden_volume</a>(
+                <a class="self" href="#418">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#418">hidden_volume</a>.<a href="../../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
             );
         }
     }
@@ -1408,11 +1427,12 @@
     </span><span class="attr">#[cfg(feature = <span class="string">"v2_58"</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_58"</span>)))]
     #[doc(alias = <span class="string">"g_mount_operation_set_is_tcrypt_system_volume"</span>)]
+    #[doc(alias = <span class="string">"is-tcrypt-system-volume"</span>)]
     </span><span class="kw">fn </span>set_is_tcrypt_system_volume(<span class="kw-2">&amp;</span><span class="self">self</span>, system_volume: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_is_tcrypt_system_volume(
-                <a class="self" href="#425">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#425">system_volume</a>.<a href="../../../glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="../../../gio_sys/fn.g_mount_operation_set_is_tcrypt_system_volume.html">ffi::g_mount_operation_set_is_tcrypt_system_volume</a>(
+                <a class="self" href="#434">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#434">system_volume</a>.<a href="../../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
             );
         }
     }
@@ -1421,11 +1441,12 @@
     /// ## `password`
     /// password to set.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_set_password"</span>)]
+    #[doc(alias = <span class="string">"password"</span>)]
     </span><span class="kw">fn </span>set_password(<span class="kw-2">&amp;</span><span class="self">self</span>, password: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_password(
-                <a class="self" href="#438">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#438">password</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_mount_operation_set_password.html">ffi::g_mount_operation_set_password</a>(
+                <a class="self" href="#448">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#448">password</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -1434,11 +1455,12 @@
     /// ## `save`
     /// a set of #GPasswordSave flags.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_set_password_save"</span>)]
-    </span><span class="kw">fn </span>set_password_save(<span class="kw-2">&amp;</span><span class="self">self</span>, save: <a href="enums.rs.html#2486-2498">PasswordSave</a>) {
+    #[doc(alias = <span class="string">"password-save"</span>)]
+    </span><span class="kw">fn </span>set_password_save(<span class="kw-2">&amp;</span><span class="self">self</span>, save: <a href="enums.rs.html#2487-2499">PasswordSave</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_password_save(
-                <a class="self" href="#451">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#451">save</a>.<a href="../../../glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="../../../gio_sys/fn.g_mount_operation_set_password_save.html">ffi::g_mount_operation_set_password_save</a>(
+                <a class="self" href="#462">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#462">save</a>.<a href="../../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
             );
         }
     }
@@ -1449,9 +1471,10 @@
     </span><span class="attr">#[cfg(feature = <span class="string">"v2_58"</span>)]
     #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_58"</span>)))]
     #[doc(alias = <span class="string">"g_mount_operation_set_pim"</span>)]
+    #[doc(alias = <span class="string">"pim"</span>)]
     </span><span class="kw">fn </span>set_pim(<span class="kw-2">&amp;</span><span class="self">self</span>, pim: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_pim(<a class="self" href="#466">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#466">pim</a>);
+            <a href="../../../gio_sys/fn.g_mount_operation_set_pim.html">ffi::g_mount_operation_set_pim</a>(<a class="self" href="#478">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#478">pim</a>);
         }
     }
 
@@ -1459,11 +1482,12 @@
     /// ## `username`
     /// input username.
     </span><span class="attr">#[doc(alias = <span class="string">"g_mount_operation_set_username"</span>)]
+    #[doc(alias = <span class="string">"username"</span>)]
     </span><span class="kw">fn </span>set_username(<span class="kw-2">&amp;</span><span class="self">self</span>, username: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
         <span class="kw">unsafe </span>{
-            ffi::g_mount_operation_set_username(
-                <a class="self" href="#476">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#476">username</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../gio_sys/fn.g_mount_operation_set_username.html">ffi::g_mount_operation_set_username</a>(
+                <a class="self" href="#489">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#489">username</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             );
         }
     }
@@ -1479,18 +1503,18 @@
             this: <span class="kw-2">*mut </span><a href="../../../gio_sys/struct.GMountOperation.html">ffi::GMountOperation</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#494">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#496">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#493">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#507">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#509">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#506">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#491">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#504">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#491">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"aborted\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#504">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"aborted\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     aborted_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#500">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#513">f</a>),
             )
         }
     }
@@ -1509,39 +1533,39 @@
     /// ## `flags`
     /// a set of #GAskPasswordFlags.
     </span><span class="attr">#[doc(alias = <span class="string">"ask-password"</span>)]
-    </span><span class="kw">fn </span>connect_ask_password&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="flags.rs.html#237-263">AskPasswordFlags</a>) + <span class="lifetime">'static</span>&gt;(
+    </span><span class="kw">fn </span>connect_ask_password&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="flags.rs.html#238-264">AskPasswordFlags</a>) + <span class="lifetime">'static</span>&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         f: F,
     ) -&gt; <a href="../../../glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>ask_password_trampoline&lt;
             P: IsA&lt;<a href="#13-188">MountOperation</a>&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="flags.rs.html#237-263">AskPasswordFlags</a>) + <span class="lifetime">'static</span>,
+            F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="flags.rs.html#238-264">AskPasswordFlags</a>) + <span class="lifetime">'static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gio_sys/struct.GMountOperation.html">ffi::GMountOperation</a>,
-            message: <span class="kw-2">*mut </span>libc::c_char,
-            default_user: <span class="kw-2">*mut </span>libc::c_char,
-            default_domain: <span class="kw-2">*mut </span>libc::c_char,
+            message: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/type.c_char.html">std::ffi::c_char</a>,
+            default_user: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/type.c_char.html">std::ffi::c_char</a>,
+            default_domain: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/type.c_char.html">std::ffi::c_char</a>,
             flags: <a href="../../../gio_sys/type.GAskPasswordFlags.html">ffi::GAskPasswordFlags</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#539">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#541">f</a>(
-                <a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#534">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
-                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">glib::GString::from_glib_borrow</a>(<a href="#535">message</a>),
-                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">glib::GString::from_glib_borrow</a>(<a href="#536">default_user</a>),
-                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">glib::GString::from_glib_borrow</a>(<a href="#537">default_domain</a>),
-                from_glib(<a href="#538">flags</a>),
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#552">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#554">f</a>(
+                <a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#547">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>(),
+                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">glib::GString::from_glib_borrow</a>(<a href="#548">message</a>),
+                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">glib::GString::from_glib_borrow</a>(<a href="#549">default_user</a>),
+                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">glib::GString::from_glib_borrow</a>(<a href="#550">default_domain</a>),
+                <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="#551">flags</a>),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#528">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#541">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#527">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"ask-password\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#540">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"ask-password\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     ask_password_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#551">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#564">f</a>),
             )
         }
     }
@@ -1555,30 +1579,30 @@
     /// ## `result`
     /// a #GMountOperationResult indicating how the request was handled
     </span><span class="attr">#[doc(alias = <span class="string">"reply"</span>)]
-    </span><span class="kw">fn </span>connect_reply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="enums.rs.html#2156-2171">MountOperationResult</a>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="../../../glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+    </span><span class="kw">fn </span>connect_reply&lt;F: Fn(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="enums.rs.html#2157-2172">MountOperationResult</a>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="../../../glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
         <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>reply_trampoline&lt;
             P: IsA&lt;<a href="#13-188">MountOperation</a>&gt;,
-            F: Fn(<span class="kw-2">&amp;</span>P, <a href="enums.rs.html#2156-2171">MountOperationResult</a>) + <span class="lifetime">'static</span>,
+            F: Fn(<span class="kw-2">&amp;</span>P, <a href="enums.rs.html#2157-2172">MountOperationResult</a>) + <span class="lifetime">'static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gio_sys/struct.GMountOperation.html">ffi::GMountOperation</a>,
             result: <a href="../../../gio_sys/type.GMountOperationResult.html">ffi::GMountOperationResult</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#579">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#581">f</a>(
-                <a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#577">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
-                from_glib(<a href="#578">result</a>),
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#592">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#594">f</a>(
+                <a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#590">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>(),
+                <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="#591">result</a>),
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#572">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#585">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#572">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"reply\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#585">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"reply\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     reply_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#588">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#601">f</a>),
             )
         }
     }
@@ -1624,28 +1648,28 @@
             F: Fn(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>) + <span class="lifetime">'static</span>,
         &gt;(
             this: <span class="kw-2">*mut </span><a href="../../../gio_sys/struct.GMountOperation.html">ffi::GMountOperation</a>,
-            message: <span class="kw-2">*mut </span>libc::c_char,
+            message: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/type.c_char.html">std::ffi::c_char</a>,
             time_left: <a href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
             bytes_left: <a href="https://doc.rust-lang.org/nightly/std/primitive.i64.html">i64</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#644">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#646">f</a>(
-                <a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#640">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>(),
-                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">glib::GString::from_glib_borrow</a>(<a href="#641">message</a>),
-                <a href="#642">time_left</a>,
-                <a href="#643">bytes_left</a>,
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#657">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#659">f</a>(
+                <a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#653">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>(),
+                <span class="kw-2">&amp;</span><a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">glib::GString::from_glib_borrow</a>(<a href="#654">message</a>),
+                <a href="#655">time_left</a>,
+                <a href="#656">bytes_left</a>,
             )
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#634">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#647">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#633">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"show-unmount-progress\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#646">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"show-unmount-progress\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     show_unmount_progress_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#655">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#668">f</a>),
             )
         }
     }
@@ -1660,18 +1684,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#675">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#677">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#673">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#688">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#690">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#686">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#668">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#681">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#668">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::anonymous\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#681">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::anonymous\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_anonymous_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#681">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#694">f</a>),
             )
         }
     }
@@ -1686,18 +1710,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#701">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#703">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#699">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#714">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#716">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#712">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#694">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#707">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#694">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::choice\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#707">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::choice\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_choice_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#707">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#720">f</a>),
             )
         }
     }
@@ -1712,18 +1736,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#727">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#729">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#725">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#740">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#742">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#738">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#720">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#733">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#720">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::domain\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#733">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::domain\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_domain_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#733">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#746">f</a>),
             )
         }
     }
@@ -1743,18 +1767,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#758">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#760">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#756">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#771">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#773">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#769">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#750">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#763">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#749">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::is-tcrypt-hidden-volume\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#762">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::is-tcrypt-hidden-volume\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_is_tcrypt_hidden_volume_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#764">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#777">f</a>),
             )
         }
     }
@@ -1774,18 +1798,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#789">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#791">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#787">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#802">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#804">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#800">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#781">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#794">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#780">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::is-tcrypt-system-volume\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#793">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::is-tcrypt-system-volume\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_is_tcrypt_system_volume_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#795">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#808">f</a>),
             )
         }
     }
@@ -1800,18 +1824,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#815">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#817">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#813">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#828">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#830">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#826">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#808">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#821">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#808">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::password\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#821">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::password\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_password_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#821">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#834">f</a>),
             )
         }
     }
@@ -1826,18 +1850,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#841">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#843">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#839">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#854">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#856">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#852">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#834">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#847">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#834">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::password-save\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#847">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::password-save\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_password_save_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#847">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#860">f</a>),
             )
         }
     }
@@ -1851,18 +1875,18 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#866">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#868">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#864">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#879">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#881">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#877">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#862">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#875">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#862">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::pim\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#875">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::pim\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_pim_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#872">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#885">f</a>),
             )
         }
     }
@@ -1877,22 +1901,22 @@
             _param_spec: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
             f: <a href="../../../glib_sys/type.gpointer.html">glib::ffi::gpointer</a>,
         ) {
-            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#892">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
-            <a href="#894">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html">MountOperation::from_glib_borrow</a>(<a href="#890">this</a>).<a href="../../../glib/object/trait.Cast.html">unsafe_cast_ref</a>())
+            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#905">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+            <a href="#907">f</a>(<a href="../../../glib/translate/trait.FromGlibPtrBorrow.html#tymethod.from_glib_borrow">MountOperation::from_glib_borrow</a>(<a href="#903">this</a>).<a href="../../../glib/object/trait.Cast.html#tymethod.unsafe_cast_ref">unsafe_cast_ref</a>())
         }
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span>f: Box_&lt;F&gt; = Box_::new(<a href="#885">f</a>);
+            <span class="kw">let </span>f: Box_&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">Box_::new</a>(<a href="#898">f</a>);
             <a href="../../../glib/signal/fn.connect_raw.html">connect_raw</a>(
-                <a class="self" href="#885">self</a>.<a href="../../../glib/object/trait.ObjectType.html">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-                <span class="string">b"notify::username\0"</span>.as_ptr() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
-                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+                <a class="self" href="#898">self</a>.<a href="../../../glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+                <span class="string">b"notify::username\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+                <span class="prelude-val">Some</span>(std::mem::transmute::&lt;<span class="kw-2">*const </span>(), <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
                     notify_username_trampoline::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
                 )),
-                Box_::into_raw(<a href="#898">f</a>),
+                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">Box_::into_raw</a>(<a href="#911">f</a>),
             )
         }
     }
 }
 
-<span class="kw">impl</span>&lt;O: IsA&lt;<a href="#13-188">MountOperation</a>&gt;&gt; <a href="#220-909">MountOperationExt</a> <span class="kw">for </span>O {}
+<span class="kw">impl</span>&lt;O: IsA&lt;<a href="#13-188">MountOperation</a>&gt;&gt; <a href="#220-922">MountOperationExt</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

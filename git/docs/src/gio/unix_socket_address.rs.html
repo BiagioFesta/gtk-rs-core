@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/unix_socket_address.rs`."><title>unix_socket_address.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/unix_socket_address.rs`."><title>unix_socket_address.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../gio/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">gio/</div>unix_socket_address.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -252,8 +251,7 @@
 <a href="#177" id="177">177</a>
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
-<a href="#180" id="180">180</a>
-</pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+<a href="#180" id="180">180</a></pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="attr">#[cfg(not(docsrs))]
 </span><span class="kw">use </span>std::ffi::OsStr;
@@ -264,7 +262,7 @@
 
 <span class="kw">use </span><a href="../../glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
-<span class="kw">use crate</span>::{<a href="lib.rs.html#118">prelude</a>::<span class="kw-2">*</span>, <a href="auto/socket_address.rs.html#13-38">SocketAddress</a>, <a href="auto/unix_socket_address.rs.html#8-72">UnixSocketAddress</a>, <a href="auto/enums.rs.html#4639-4658">UnixSocketAddressType</a>};
+<span class="kw">use crate</span>::{<a href="../../gio_sys/index.html">ffi</a>, <a href="lib.rs.html#121">prelude</a>::<span class="kw-2">*</span>, <a href="auto/socket_address.rs.html#13-38">SocketAddress</a>, <a href="auto/unix_socket_address.rs.html#8-72">UnixSocketAddress</a>, <a href="auto/enums.rs.html#4640-4659">UnixSocketAddressType</a>};
 
 <span class="attr">#[derive(Debug)]
 </span><span class="kw">pub enum </span><a href="../../gio/prelude/enum.UnixSocketAddressPath.html">UnixSocketAddressPath</a>&lt;<span class="lifetime">'a</span>&gt; {
@@ -275,14 +273,14 @@
 }
 
 <span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; UnixSocketAddressPath&lt;<span class="lifetime">'a</span>&gt; {
-    <span class="kw">fn </span>to_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="auto/enums.rs.html#4639-4658">UnixSocketAddressType</a> {
+    <span class="kw">fn </span>to_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="auto/enums.rs.html#4640-4659">UnixSocketAddressType</a> {
         <span class="kw">use </span><a href="#15-20"><span class="self">self</span>::UnixSocketAddressPath</a>::<span class="kw-2">*</span>;
 
         <span class="kw">match </span><span class="kw-2">*</span><span class="self"><a href="#23">self</a> </span>{
-            <a href="#16">Path</a>(<span class="kw">_</span>) =&gt; <a href="auto/enums.rs.html#4648">UnixSocketAddressType::Path</a>,
-            <a href="#17">Anonymous</a> =&gt; <a href="auto/enums.rs.html#4645">UnixSocketAddressType::Anonymous</a>,
-            <a href="#18">Abstract</a>(<span class="kw">_</span>) =&gt; <a href="auto/enums.rs.html#4651">UnixSocketAddressType::Abstract</a>,
-            <a href="#19">AbstractPadded</a>(<span class="kw">_</span>) =&gt; <a href="auto/enums.rs.html#4655">UnixSocketAddressType::AbstractPadded</a>,
+            <a href="#16">Path</a>(<span class="kw">_</span>) =&gt; <a href="auto/enums.rs.html#4649">UnixSocketAddressType::Path</a>,
+            <a href="#17">Anonymous</a> =&gt; <a href="auto/enums.rs.html#4646">UnixSocketAddressType::Anonymous</a>,
+            <a href="#18">Abstract</a>(<span class="kw">_</span>) =&gt; <a href="auto/enums.rs.html#4652">UnixSocketAddressType::Abstract</a>,
+            <a href="#19">AbstractPadded</a>(<span class="kw">_</span>) =&gt; <a href="auto/enums.rs.html#4656">UnixSocketAddressType::AbstractPadded</a>,
         }
     }
 }
@@ -301,8 +299,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_socket_address_new"</span>)]
     </span><span class="kw">pub fn </span>new(path: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">path::Path</a>) -&gt; <a href="auto/unix_socket_address.rs.html#8-72">UnixSocketAddress</a> {
         <span class="kw">unsafe </span>{
-            <a href="../../glib/translate/trait.FromGlibPtrFull.html">SocketAddress::from_glib_full</a>(ffi::g_unix_socket_address_new(<a href="#47">path</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>))
-                .<a href="../../glib/object/trait.Cast.html">unsafe_cast</a>()
+            <a href="../../glib/translate/trait.FromGlibPtrFull.html#tymethod.from_glib_full">SocketAddress::from_glib_full</a>(<a href="../../gio_sys/fn.g_unix_socket_address_new.html">ffi::g_unix_socket_address_new</a>(<a href="#47">path</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>))
+                .<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast">unsafe_cast</a>()
         }
     }
 
@@ -351,20 +349,20 @@
 
         <span class="kw">let </span>type_ = <a href="#94">address_type</a>.<a href="#23-32">to_type</a>();
         <span class="kw">let </span>new = |ptr, len| <span class="kw">unsafe </span>{
-            <a href="../../glib/translate/trait.FromGlibPtrFull.html">SocketAddress::from_glib_full</a>(ffi::g_unix_socket_address_new_with_type(
+            <a href="../../glib/translate/trait.FromGlibPtrFull.html#tymethod.from_glib_full">SocketAddress::from_glib_full</a>(<a href="../../gio_sys/fn.g_unix_socket_address_new_with_type.html">ffi::g_unix_socket_address_new_with_type</a>(
                 <a href="#98">ptr</a>,
                 <a href="#98">len</a>,
-                <a href="#97">type_</a>.<a href="../../glib/translate/trait.IntoGlib.html">into_glib</a>(),
+                <a href="#97">type_</a>.<a href="../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
             ))
-            .<a href="../../glib/object/trait.Cast.html">unsafe_cast</a>()
+            .<a href="../../glib/object/trait.Cast.html#tymethod.unsafe_cast">unsafe_cast</a>()
         };
         <span class="kw">match </span><a href="#94">address_type</a> {
-            <a href="#16">Path</a>(path) =&gt; <a href="#98">new</a>(<a href="#107">path</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, -<span class="number">1</span>),
+            <a href="#16">Path</a>(path) =&gt; <a href="#98">new</a>(<a href="#107">path</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, -<span class="number">1</span>),
             <a href="#18">Abstract</a>(path) | <a href="#19">AbstractPadded</a>(path) =&gt; <a href="#98">new</a>(
-                <a href="#108">path</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span>libc::c_char,
-                <a href="#108">path</a>.len() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+                <a href="#108">path</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0 </span><span class="kw">as </span><span class="kw-2">*mut </span>libc::c_char,
+                <a href="#108">path</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.slice.html#method.len">len</a>() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
             ),
-            <a href="#17">Anonymous</a> =&gt; <a href="#98">new</a>(ptr::null_mut(), <span class="number">0</span>),
+            <a href="#17">Anonymous</a> =&gt; <a href="#98">new</a>(<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">ptr::null_mut</a>(), <span class="number">0</span>),
         }
     }
 }
@@ -391,22 +389,22 @@
         <span class="kw">use </span><a href="#15-20"><span class="self">self</span>::UnixSocketAddressPath</a>::<span class="kw-2">*</span>;
 
         <span class="kw">let </span>path = <span class="kw">unsafe </span>{
-            <span class="kw">let </span>path = ffi::g_unix_socket_address_get_path(<a class="self" href="#135">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>);
+            <span class="kw">let </span>path = <a href="../../gio_sys/fn.g_unix_socket_address_get_path.html">ffi::g_unix_socket_address_get_path</a>(<a class="self" href="#135">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
             <span class="kw">if </span>path.is_null() || <span class="self">self</span>.path_len() == <span class="number">0 </span>{
                 <span class="kw-2">&amp;</span>[]
             } <span class="kw">else </span>{
-                <a href="https://doc.rust-lang.org/nightly/core/slice/raw/fn.from_raw_parts.html">slice::from_raw_parts</a>(<a href="#139">path</a> <span class="kw">as </span><span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a class="self" href="#135">self</a>.<a href="auto/unix_socket_address.rs.html#156-158">path_len</a>())
+                <a href="https://doc.rust-lang.org/nightly/core/slice/raw/fn.from_raw_parts.html">slice::from_raw_parts</a>(<a href="#139">path</a> <span class="kw">as </span><span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, <a class="self" href="#135">self</a>.<a href="auto/unix_socket_address.rs.html#157-159">path_len</a>())
             }
         };
-        <span class="kw">match </span><a class="self" href="#135">self</a>.<a href="auto/unix_socket_address.rs.html#120-126">address_type</a>() {
-            <a href="auto/enums.rs.html#4645">UnixSocketAddressType::Anonymous</a> =&gt; <span class="prelude-val">Some</span>(<a href="#17">Anonymous</a>),
+        <span class="kw">match </span><a class="self" href="#135">self</a>.<a href="auto/unix_socket_address.rs.html#121-127">address_type</a>() {
+            <a href="auto/enums.rs.html#4646">UnixSocketAddressType::Anonymous</a> =&gt; <span class="prelude-val">Some</span>(<a href="#17">Anonymous</a>),
             <span class="attr">#[cfg(not(docsrs))]
             </span>UnixSocketAddressType::Path =&gt; <span class="prelude-val">Some</span>(Path(path::Path::new(OsStr::from_bytes(path)))),
             <span class="attr">#[cfg(docsrs)]
-            </span><a href="auto/enums.rs.html#4648">UnixSocketAddressType::Path</a> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(),
-            <a href="auto/enums.rs.html#4651">UnixSocketAddressType::Abstract</a> =&gt; <span class="prelude-val">Some</span>(<a href="#18">Abstract</a>(<a href="#138">path</a>)),
-            <a href="auto/enums.rs.html#4655">UnixSocketAddressType::AbstractPadded</a> =&gt; <span class="prelude-val">Some</span>(<a href="#19">AbstractPadded</a>(<a href="#138">path</a>)),
-            <a href="auto/enums.rs.html#4642">UnixSocketAddressType::Invalid</a> | <a href="auto/enums.rs.html#4657">UnixSocketAddressType::__Unknown</a>(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
+            </span><a href="auto/enums.rs.html#4649">UnixSocketAddressType::Path</a> =&gt; <a class="macro" href="https://doc.rust-lang.org/nightly/core/macro.unreachable.html">unreachable!</a>(),
+            <a href="auto/enums.rs.html#4652">UnixSocketAddressType::Abstract</a> =&gt; <span class="prelude-val">Some</span>(<a href="#18">Abstract</a>(<a href="#138">path</a>)),
+            <a href="auto/enums.rs.html#4656">UnixSocketAddressType::AbstractPadded</a> =&gt; <span class="prelude-val">Some</span>(<a href="#19">AbstractPadded</a>(<a href="#138">path</a>)),
+            <a href="auto/enums.rs.html#4643">UnixSocketAddressType::Invalid</a> | <a href="auto/enums.rs.html#4658">UnixSocketAddressType::__Unknown</a>(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
         }
     }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/auto/unix_mount_point.rs`."><title>unix_mount_point.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gio/src/auto/unix_mount_point.rs`."><title>unix_mount_point.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gio" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../gio/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">gio/auto/</div>unix_mount_point.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -319,15 +318,14 @@
 <a href="#244" id="244">244</a>
 <a href="#245" id="245">245</a>
 <a href="#246" id="246">246</a>
-<a href="#247" id="247">247</a>
-</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+<a href="#247" id="247">247</a></pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use </span><a href="icon.rs.html#7-48"><span class="kw">crate</span>::Icon</a>;
+</span><span class="kw">use crate</span>::{<a href="../../../gio_sys/index.html">ffi</a>, <a href="icon.rs.html#8-49">Icon</a>};
 <span class="kw">use </span><a href="../../../glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
-<a class="macro" href="../../../glib/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="../../../glib/macro.wrapper.html">glib::wrapper!</a> {
     <span class="doccomment">/// Defines a Unix mount point (e.g. &lt;filename&gt;/dev&lt;/filename&gt;).
     /// This corresponds roughly to a fstab entry.
     </span><span class="attr">#[derive(Debug)]
@@ -344,9 +342,9 @@
     <span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_compare"</span>)]
     </span><span class="kw">fn </span>compare(<span class="kw-2">&amp;</span><span class="self">self</span>, mount2: <span class="kw-2">&amp;</span><a href="#8-19">UnixMountPoint</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
         <span class="kw">unsafe </span>{
-            ffi::g_unix_mount_point_compare(
-                mut_override(<a class="self" href="#23">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
-                mut_override(<a href="#23">mount2</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>),
+            <a href="../../../gio_sys/fn.g_unix_mount_point_compare.html">ffi::g_unix_mount_point_compare</a>(
+                <a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#23">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+                <a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(<a href="#23">mount2</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
             )
         }
     }
@@ -360,8 +358,8 @@
     #[doc(alias = <span class="string">"get_device_path"</span>)]
     </span><span class="kw">pub fn </span>device_path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">std::path::PathBuf</a> {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::g_unix_mount_point_get_device_path(mut_override(
-                <a class="self" href="#39">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_get_device_path.html">ffi::g_unix_mount_point_get_device_path</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#39">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -375,8 +373,8 @@
     #[doc(alias = <span class="string">"get_fs_type"</span>)]
     </span><span class="kw">pub fn </span>fs_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="../../../glib/gstring/struct.GString.html">glib::GString</a> {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::g_unix_mount_point_get_fs_type(mut_override(
-                <a class="self" href="#54">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_get_fs_type.html">ffi::g_unix_mount_point_get_fs_type</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#54">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -390,8 +388,8 @@
     #[doc(alias = <span class="string">"get_mount_path"</span>)]
     </span><span class="kw">pub fn </span>mount_path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html">std::path::PathBuf</a> {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::g_unix_mount_point_get_mount_path(mut_override(
-                <a class="self" href="#69">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_get_mount_path.html">ffi::g_unix_mount_point_get_mount_path</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#69">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -405,8 +403,8 @@
     #[doc(alias = <span class="string">"get_options"</span>)]
     </span><span class="kw">pub fn </span>options(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="../../../glib/gstring/struct.GString.html">glib::GString</a>&gt; {
         <span class="kw">unsafe </span>{
-            from_glib_none(ffi::g_unix_mount_point_get_options(mut_override(
-                <a class="self" href="#84">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_none.html">from_glib_none</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_get_options.html">ffi::g_unix_mount_point_get_options</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#84">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -419,8 +417,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_guess_can_eject"</span>)]
     </span><span class="kw">pub fn </span>guess_can_eject(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_unix_mount_point_guess_can_eject(mut_override(
-                <a class="self" href="#98">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_guess_can_eject.html">ffi::g_unix_mount_point_guess_can_eject</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#98">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -431,10 +429,10 @@
     ///
     /// a #GIcon
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_guess_icon"</span>)]
-    </span><span class="kw">pub fn </span>guess_icon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="icon.rs.html#7-48">Icon</a> {
+    </span><span class="kw">pub fn </span>guess_icon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="icon.rs.html#8-49">Icon</a> {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_unix_mount_point_guess_icon(mut_override(
-                <a class="self" href="#112">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_guess_icon.html">ffi::g_unix_mount_point_guess_icon</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#112">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -449,8 +447,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_guess_name"</span>)]
     </span><span class="kw">pub fn </span>guess_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="../../../glib/gstring/struct.GString.html">glib::GString</a> {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_unix_mount_point_guess_name(mut_override(
-                <a class="self" href="#128">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_guess_name.html">ffi::g_unix_mount_point_guess_name</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#128">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -461,10 +459,10 @@
     ///
     /// a #GIcon
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_guess_symbolic_icon"</span>)]
-    </span><span class="kw">pub fn </span>guess_symbolic_icon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="icon.rs.html#7-48">Icon</a> {
+    </span><span class="kw">pub fn </span>guess_symbolic_icon(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="icon.rs.html#8-49">Icon</a> {
         <span class="kw">unsafe </span>{
-            from_glib_full(ffi::g_unix_mount_point_guess_symbolic_icon(mut_override(
-                <a class="self" href="#142">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_guess_symbolic_icon.html">ffi::g_unix_mount_point_guess_symbolic_icon</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#142">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -477,8 +475,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_is_loopback"</span>)]
     </span><span class="kw">pub fn </span>is_loopback(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_unix_mount_point_is_loopback(mut_override(
-                <a class="self" href="#156">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_is_loopback.html">ffi::g_unix_mount_point_is_loopback</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#156">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -491,8 +489,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_is_readonly"</span>)]
     </span><span class="kw">pub fn </span>is_readonly(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_unix_mount_point_is_readonly(mut_override(
-                <a class="self" href="#170">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_is_readonly.html">ffi::g_unix_mount_point_is_readonly</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#170">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -505,8 +503,8 @@
     </span><span class="attr">#[doc(alias = <span class="string">"g_unix_mount_point_is_user_mountable"</span>)]
     </span><span class="kw">pub fn </span>is_user_mountable(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
         <span class="kw">unsafe </span>{
-            from_glib(ffi::g_unix_mount_point_is_user_mountable(mut_override(
-                <a class="self" href="#184">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_is_user_mountable.html">ffi::g_unix_mount_point_is_user_mountable</a>(<a href="../../../glib/translate/fn.mut_override.html">mut_override</a>(
+                <a class="self" href="#184">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             )))
         }
     }
@@ -532,12 +530,12 @@
     #[doc(alias = <span class="string">"g_unix_mount_point_at"</span>)]
     </span><span class="kw">pub fn </span>at(mount_path: <span class="kw">impl </span>AsRef&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">std::path::Path</a>&gt;) -&gt; (<span class="prelude-ty">Option</span>&lt;<a href="#8-19">UnixMountPoint</a>&gt;, <a href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>) {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>time_read = std::mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib_full(ffi::g_unix_mount_point_at(
-                <a href="#211">mount_path</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#213">time_read</a>.as_mut_ptr(),
+            <span class="kw">let </span><span class="kw-2">mut </span>time_read = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">std::mem::MaybeUninit::uninit</a>();
+            <span class="kw">let </span>ret = <a href="../../../glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="../../../gio_sys/fn.g_unix_mount_point_at.html">ffi::g_unix_mount_point_at</a>(
+                <a href="#211">mount_path</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#213">time_read</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
             ));
-            (<a href="#214">ret</a>, <a href="#213">time_read</a>.assume_init())
+            (<a href="#214">ret</a>, <a href="#213">time_read</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>())
         }
     }
 }
@@ -554,14 +552,14 @@
 <span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html">PartialOrd</a> <span class="kw">for </span><a href="#8-19">UnixMountPoint</a> {
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>partial_cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<a href="https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html">std::cmp::Ordering</a>&gt; {
-        <span class="prelude-val">Some</span>(<a class="self" href="#234">self</a>.<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html">cmp</a>(<a href="#234">other</a>))
+        <span class="prelude-val">Some</span>(<a class="self" href="#234">self</a>.<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#tymethod.cmp">cmp</a>(<a href="#234">other</a>))
     }
 }
 
 <span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html">Ord</a> <span class="kw">for </span><a href="#8-19">UnixMountPoint</a> {
     <span class="attr">#[inline]
     </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html">std::cmp::Ordering</a> {
-        <a class="self" href="#241">self</a>.<a href="#23-30">compare</a>(<a href="#241">other</a>).<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html">cmp</a>(<span class="kw-2">&amp;</span><span class="number">0</span>)
+        <a class="self" href="#241">self</a>.<a href="#23-30">compare</a>(<a href="#241">other</a>).<a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#tymethod.cmp">cmp</a>(<span class="kw-2">&amp;</span><span class="number">0</span>)
     }
 }
 

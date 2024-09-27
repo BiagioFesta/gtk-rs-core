@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `graphene/src/auto/ray.rs`."><title>ray.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="graphene" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `graphene/src/auto/ray.rs`."><title>ray.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="graphene" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../../graphene/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">graphene/auto/</div>ray.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -345,15 +344,14 @@
 <a href="#270" id="270">270</a>
 <a href="#271" id="271">271</a>
 <a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-</pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+<a href="#273" id="273">273</a></pre></div><pre class="rust"><code><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-</span><span class="kw">use crate</span>::{<a href="box_.rs.html#8-18">Box</a>, <a href="plane.rs.html#8-20">Plane</a>, <a href="point3_d.rs.html#8-17">Point3D</a>, <a href="enums.rs.html#207-221">RayIntersectionKind</a>, <a href="sphere.rs.html#8-17">Sphere</a>, <a href="triangle.rs.html#8-17">Triangle</a>, <a href="vec3.rs.html#8-20">Vec3</a>};
+</span><span class="kw">use crate</span>::{<a href="../../../graphene_sys/index.html">ffi</a>, <a href="box_.rs.html#8-18">Box</a>, <a href="plane.rs.html#8-20">Plane</a>, <a href="point3_d.rs.html#8-17">Point3D</a>, <a href="enums.rs.html#208-222">RayIntersectionKind</a>, <a href="sphere.rs.html#8-17">Sphere</a>, <a href="triangle.rs.html#8-17">Triangle</a>, <a href="vec3.rs.html#8-20">Vec3</a>};
 <span class="kw">use </span><a href="../../../glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
-<a class="macro" href="../../../glib/glib/macro.wrapper.html">glib::wrapper! </a>{
+<a class="macro" href="../../../glib/macro.wrapper.html">glib::wrapper!</a> {
     <span class="doccomment">/// A ray emitted from an origin in a given direction.
     ///
     /// The contents of the [`Ray`][crate::Ray] structure are private, and should not
@@ -370,7 +368,7 @@
 <span class="kw">impl </span><a href="#8-20">Ray</a> {
     <span class="attr">#[doc(alias = <span class="string">"graphene_ray_equal"</span>)]
     </span><span class="kw">fn </span>equal(<span class="kw-2">&amp;</span><span class="self">self</span>, b: <span class="kw-2">&amp;</span><a href="#8-20">Ray</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ ffi::graphene_ray_equal(<a class="self" href="#24">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#24">b</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ <a href="../../../graphene_sys/fn.graphene_ray_equal.html">ffi::graphene_ray_equal</a>(<a class="self" href="#24">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#24">b</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Computes the point on the given [`Ray`][crate::Ray] that is closest to the
@@ -387,11 +385,11 @@
     #[doc(alias = <span class="string">"get_closest_point_to_point"</span>)]
     </span><span class="kw">pub fn </span>closest_point_to_point(<span class="kw-2">&amp;</span><span class="self">self</span>, p: <span class="kw-2">&amp;</span><a href="point3_d.rs.html#8-17">Point3D</a>) -&gt; <a href="point3_d.rs.html#8-17">Point3D</a> {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>res = <a href="../../../glib/translate/trait.Uninitialized.html">Point3D::uninitialized</a>();
-            ffi::graphene_ray_get_closest_point_to_point(
-                <a class="self" href="#40">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#40">p</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#42">res</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
+            <span class="kw">let </span><span class="kw-2">mut </span>res = <a href="../../../glib/translate/trait.Uninitialized.html#tymethod.uninitialized">Point3D::uninitialized</a>();
+            <a href="../../../graphene_sys/fn.graphene_ray_get_closest_point_to_point.html">ffi::graphene_ray_get_closest_point_to_point</a>(
+                <a class="self" href="#40">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#40">p</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#42">res</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
             );
             <a href="#42">res</a>
         }
@@ -408,8 +406,8 @@
     #[doc(alias = <span class="string">"get_direction"</span>)]
     </span><span class="kw">pub fn </span>direction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="vec3.rs.html#8-20">Vec3</a> {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>direction = <a href="../../../glib/translate/trait.Uninitialized.html">Vec3::uninitialized</a>();
-            ffi::graphene_ray_get_direction(<a class="self" href="#61">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#63">direction</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>);
+            <span class="kw">let </span><span class="kw-2">mut </span>direction = <a href="../../../glib/translate/trait.Uninitialized.html#tymethod.uninitialized">Vec3::uninitialized</a>();
+            <a href="../../../graphene_sys/fn.graphene_ray_get_direction.html">ffi::graphene_ray_get_direction</a>(<a class="self" href="#61">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#63">direction</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>);
             <a href="#63">direction</a>
         }
     }
@@ -428,7 +426,7 @@
     #[doc(alias = <span class="string">"get_distance_to_plane"</span>)]
     </span><span class="kw">pub fn </span>distance_to_plane(<span class="kw-2">&amp;</span><span class="self">self</span>, p: <span class="kw-2">&amp;</span><a href="plane.rs.html#8-20">Plane</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a> {
         <span class="kw">unsafe </span>{
-            ffi::graphene_ray_get_distance_to_plane(<a class="self" href="#81">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#81">p</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+            <a href="../../../graphene_sys/fn.graphene_ray_get_distance_to_plane.html">ffi::graphene_ray_get_distance_to_plane</a>(<a class="self" href="#81">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#81">p</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)
         }
     }
 
@@ -448,7 +446,7 @@
     #[doc(alias = <span class="string">"get_distance_to_point"</span>)]
     </span><span class="kw">pub fn </span>distance_to_point(<span class="kw-2">&amp;</span><span class="self">self</span>, p: <span class="kw-2">&amp;</span><a href="point3_d.rs.html#8-17">Point3D</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a> {
         <span class="kw">unsafe </span>{
-            ffi::graphene_ray_get_distance_to_point(<a class="self" href="#101">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#101">p</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>)
+            <a href="../../../graphene_sys/fn.graphene_ray_get_distance_to_point.html">ffi::graphene_ray_get_distance_to_point</a>(<a class="self" href="#101">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#101">p</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)
         }
     }
 
@@ -463,8 +461,8 @@
     #[doc(alias = <span class="string">"get_origin"</span>)]
     </span><span class="kw">pub fn </span>origin(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="point3_d.rs.html#8-17">Point3D</a> {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>origin = <a href="../../../glib/translate/trait.Uninitialized.html">Point3D::uninitialized</a>();
-            ffi::graphene_ray_get_origin(<a class="self" href="#116">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#118">origin</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>);
+            <span class="kw">let </span><span class="kw-2">mut </span>origin = <a href="../../../glib/translate/trait.Uninitialized.html#tymethod.uninitialized">Point3D::uninitialized</a>();
+            <a href="../../../graphene_sys/fn.graphene_ray_get_origin.html">ffi::graphene_ray_get_origin</a>(<a class="self" href="#116">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#118">origin</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>);
             <a href="#118">origin</a>
         }
     }
@@ -483,11 +481,11 @@
     #[doc(alias = <span class="string">"get_position_at"</span>)]
     </span><span class="kw">pub fn </span>position_at(<span class="kw-2">&amp;</span><span class="self">self</span>, t: <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) -&gt; <a href="point3_d.rs.html#8-17">Point3D</a> {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>position = <a href="../../../glib/translate/trait.Uninitialized.html">Point3D::uninitialized</a>();
-            ffi::graphene_ray_get_position_at(
-                <a class="self" href="#136">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <span class="kw">let </span><span class="kw-2">mut </span>position = <a href="../../../glib/translate/trait.Uninitialized.html#tymethod.uninitialized">Point3D::uninitialized</a>();
+            <a href="../../../graphene_sys/fn.graphene_ray_get_position_at.html">ffi::graphene_ray_get_position_at</a>(
+                <a class="self" href="#136">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
                 <a href="#136">t</a>,
-                <a href="#138">position</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
+                <a href="#138">position</a>.<a href="../../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
             );
             <a href="#138">position</a>
         }
@@ -505,15 +503,15 @@
     /// ## `t_out`
     /// the distance of the point on the ray that intersects the box
     </span><span class="attr">#[doc(alias = <span class="string">"graphene_ray_intersect_box"</span>)]
-    </span><span class="kw">pub fn </span>intersect_box(<span class="kw-2">&amp;</span><span class="self">self</span>, b: <span class="kw-2">&amp;</span><a href="box_.rs.html#8-18">Box</a>) -&gt; (<a href="enums.rs.html#207-221">RayIntersectionKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) {
+    </span><span class="kw">pub fn </span>intersect_box(<span class="kw-2">&amp;</span><span class="self">self</span>, b: <span class="kw-2">&amp;</span><a href="box_.rs.html#8-18">Box</a>) -&gt; (<a href="enums.rs.html#208-222">RayIntersectionKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>t_out = std::mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::graphene_ray_intersect_box(
-                <a class="self" href="#160">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#160">b</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#162">t_out</a>.as_mut_ptr(),
+            <span class="kw">let </span><span class="kw-2">mut </span>t_out = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">std::mem::MaybeUninit::uninit</a>();
+            <span class="kw">let </span>ret = <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../graphene_sys/fn.graphene_ray_intersect_box.html">ffi::graphene_ray_intersect_box</a>(
+                <a class="self" href="#160">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#160">b</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#162">t_out</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
             ));
-            (<a href="#163">ret</a>, <a href="#162">t_out</a>.assume_init())
+            (<a href="#163">ret</a>, <a href="#162">t_out</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>())
         }
     }
 
@@ -529,15 +527,15 @@
     /// ## `t_out`
     /// the distance of the point on the ray that intersects the sphere
     </span><span class="attr">#[doc(alias = <span class="string">"graphene_ray_intersect_sphere"</span>)]
-    </span><span class="kw">pub fn </span>intersect_sphere(<span class="kw-2">&amp;</span><span class="self">self</span>, s: <span class="kw-2">&amp;</span><a href="sphere.rs.html#8-17">Sphere</a>) -&gt; (<a href="enums.rs.html#207-221">RayIntersectionKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) {
+    </span><span class="kw">pub fn </span>intersect_sphere(<span class="kw-2">&amp;</span><span class="self">self</span>, s: <span class="kw-2">&amp;</span><a href="sphere.rs.html#8-17">Sphere</a>) -&gt; (<a href="enums.rs.html#208-222">RayIntersectionKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>t_out = std::mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::graphene_ray_intersect_sphere(
-                <a class="self" href="#184">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#184">s</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#186">t_out</a>.as_mut_ptr(),
+            <span class="kw">let </span><span class="kw-2">mut </span>t_out = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">std::mem::MaybeUninit::uninit</a>();
+            <span class="kw">let </span>ret = <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../graphene_sys/fn.graphene_ray_intersect_sphere.html">ffi::graphene_ray_intersect_sphere</a>(
+                <a class="self" href="#184">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#184">s</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#186">t_out</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
             ));
-            (<a href="#187">ret</a>, <a href="#186">t_out</a>.assume_init())
+            (<a href="#187">ret</a>, <a href="#186">t_out</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>())
         }
     }
 
@@ -553,15 +551,15 @@
     /// ## `t_out`
     /// the distance of the point on the ray that intersects the triangle
     </span><span class="attr">#[doc(alias = <span class="string">"graphene_ray_intersect_triangle"</span>)]
-    </span><span class="kw">pub fn </span>intersect_triangle(<span class="kw-2">&amp;</span><span class="self">self</span>, t: <span class="kw-2">&amp;</span><a href="triangle.rs.html#8-17">Triangle</a>) -&gt; (<a href="enums.rs.html#207-221">RayIntersectionKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) {
+    </span><span class="kw">pub fn </span>intersect_triangle(<span class="kw-2">&amp;</span><span class="self">self</span>, t: <span class="kw-2">&amp;</span><a href="triangle.rs.html#8-17">Triangle</a>) -&gt; (<a href="enums.rs.html#208-222">RayIntersectionKind</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) {
         <span class="kw">unsafe </span>{
-            <span class="kw">let </span><span class="kw-2">mut </span>t_out = std::mem::MaybeUninit::uninit();
-            <span class="kw">let </span>ret = from_glib(ffi::graphene_ray_intersect_triangle(
-                <a class="self" href="#208">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#208">t</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-                <a href="#210">t_out</a>.as_mut_ptr(),
+            <span class="kw">let </span><span class="kw-2">mut </span>t_out = <a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">std::mem::MaybeUninit::uninit</a>();
+            <span class="kw">let </span>ret = <a href="../../../glib/translate/fn.from_glib.html">from_glib</a>(<a href="../../../graphene_sys/fn.graphene_ray_intersect_triangle.html">ffi::graphene_ray_intersect_triangle</a>(
+                <a class="self" href="#208">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#208">t</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+                <a href="#210">t_out</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
             ));
-            (<a href="#211">ret</a>, <a href="#210">t_out</a>.assume_init())
+            (<a href="#211">ret</a>, <a href="#210">t_out</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>())
         }
     }
 
@@ -577,7 +575,7 @@
     /// `true` if the ray intersects the box
     </span><span class="attr">#[doc(alias = <span class="string">"graphene_ray_intersects_box"</span>)]
     </span><span class="kw">pub fn </span>intersects_box(<span class="kw-2">&amp;</span><span class="self">self</span>, b: <span class="kw-2">&amp;</span><a href="box_.rs.html#8-18">Box</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ ffi::graphene_ray_intersects_box(<a class="self" href="#231">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#231">b</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ <a href="../../../graphene_sys/fn.graphene_ray_intersects_box.html">ffi::graphene_ray_intersects_box</a>(<a class="self" href="#231">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#231">b</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Checks if the given [`Ray`][crate::Ray] `self` intersects the
@@ -592,7 +590,7 @@
     /// `true` if the ray intersects the sphere
     </span><span class="attr">#[doc(alias = <span class="string">"graphene_ray_intersects_sphere"</span>)]
     </span><span class="kw">pub fn </span>intersects_sphere(<span class="kw-2">&amp;</span><span class="self">self</span>, s: <span class="kw-2">&amp;</span><a href="sphere.rs.html#8-17">Sphere</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ ffi::graphene_ray_intersects_sphere(<a class="self" href="#246">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#246">s</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ <a href="../../../graphene_sys/fn.graphene_ray_intersects_sphere.html">ffi::graphene_ray_intersects_sphere</a>(<a class="self" href="#246">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#246">s</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
     }
 
     <span class="doccomment">/// Checks whether the given [`Ray`][crate::Ray] `self` intersects the
@@ -607,7 +605,7 @@
     /// `true` if the ray intersects the triangle
     </span><span class="attr">#[doc(alias = <span class="string">"graphene_ray_intersects_triangle"</span>)]
     </span><span class="kw">pub fn </span>intersects_triangle(<span class="kw-2">&amp;</span><span class="self">self</span>, t: <span class="kw-2">&amp;</span><a href="triangle.rs.html#8-17">Triangle</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-        <span class="kw">unsafe </span>{ ffi::graphene_ray_intersects_triangle(<a class="self" href="#261">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>, <a href="#261">t</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>) }
+        <span class="kw">unsafe </span>{ <a href="../../../graphene_sys/fn.graphene_ray_intersects_triangle.html">ffi::graphene_ray_intersects_triangle</a>(<a class="self" href="#261">self</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#261">t</a>.<a href="../../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
     }
 }
 

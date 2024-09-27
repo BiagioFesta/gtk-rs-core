@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `pango/src/functions.rs`."><title>functions.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pango" data-themes="" data-resource-suffix="" data-rustdoc-version="1.78.0-nightly (98aa3624b 2024-02-08)" data-channel="nightly" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `pango/src/functions.rs`."><title>functions.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-42fa08075bb476ff.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pango" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0-nightly (2bd1e894e 2024-09-26)" data-channel="nightly" data-search-js="search-e056c65ede92db13.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-54bc299d2a5e4e43.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,9 +71,8 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title">
-            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
-    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../pango/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">pango/</div>functions.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -253,15 +252,14 @@
 <a href="#178" id="178">178</a>
 <a href="#179" id="179">179</a>
 <a href="#180" id="180">180</a>
-<a href="#181" id="181">181</a>
-</pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+<a href="#181" id="181">181</a></pre></div><pre class="rust"><code><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 
 </span><span class="kw">use </span><a href="../../glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 
 <span class="kw">pub use </span><a href="auto/mod.rs.html#123"><span class="kw">crate</span>::auto::functions</a>::<span class="kw-2">*</span>;
 <span class="attr">#[cfg(feature = <span class="string">"v1_44"</span>)]
-</span><span class="kw">use </span><a href="auto/flags.rs.html#329-345"><span class="kw">crate</span>::ShapeFlags</a>;
-<span class="kw">use crate</span>::{<a href="analysis.rs.html#9-14">Analysis</a>, <a href="auto/glyph_string.rs.html#8-22">GlyphString</a>, <a href="auto/item.rs.html#10-23">Item</a>};
+</span><span class="kw">use </span><a href="auto/flags.rs.html#330-346"><span class="kw">crate</span>::ShapeFlags</a>;
+<span class="kw">use crate</span>::{<a href="../../pango_sys/index.html">ffi</a>, <a href="analysis.rs.html#9-14">Analysis</a>, <a href="auto/glyph_string.rs.html#8-22">GlyphString</a>, <a href="auto/item.rs.html#11-24">Item</a>};
 
 <span class="doccomment">/// Reorder items from logical order to visual order.
 ///
@@ -280,10 +278,10 @@
 /// a `GList`
 ///   of [`Item`][crate::Item] structures in visual order.
 </span><span class="attr">#[doc(alias = <span class="string">"pango_reorder_items"</span>)]
-</span><span class="kw">pub fn </span><a href="../../pango/fn.reorder_items.html">reorder_items</a>(logical_items: <span class="kw-2">&amp;</span>glib::List&lt;<a href="auto/item.rs.html#10-23">Item</a>&gt;) -&gt; glib::List&lt;<a href="auto/item.rs.html#10-23">Item</a>&gt; {
+</span><span class="kw">pub fn </span><a href="../../pango/fn.reorder_items.html">reorder_items</a>(logical_items: <span class="kw-2">&amp;</span>glib::List&lt;<a href="auto/item.rs.html#11-24">Item</a>&gt;) -&gt; glib::List&lt;<a href="auto/item.rs.html#11-24">Item</a>&gt; {
     <span class="kw">unsafe </span>{
-        <a href="../../glib/translate/trait.FromGlibPtrContainer.html">FromGlibPtrContainer::from_glib_full</a>(ffi::pango_reorder_items(
-            <a href="#27">logical_items</a>.as_ptr() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_
+        <a href="../../glib/translate/trait.FromGlibPtrContainer.html#tymethod.from_glib_full">FromGlibPtrContainer::from_glib_full</a>(<a href="../../pango_sys/fn.pango_reorder_items.html">ffi::pango_reorder_items</a>(
+            <a href="#27">logical_items</a>.<a href="../../glib/collections/list/struct.List.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_
         </span>))
     }
 }
@@ -329,19 +327,19 @@
     glyphs: <span class="kw-2">&amp;mut </span><a href="auto/glyph_string.rs.html#8-22">GlyphString</a>,
 ) {
     <span class="kw">let </span>paragraph_length = <span class="kw">match </span><a href="#71">paragraph_text</a> {
-        <span class="prelude-val">Some</span>(s) =&gt; <a href="#76">s</a>.len(),
+        <span class="prelude-val">Some</span>(s) =&gt; <a href="#76">s</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.len">len</a>(),
         <span class="prelude-val">None </span>=&gt; <span class="number">0</span>,
     } <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
-    <span class="kw">let </span>paragraph_text = <a href="#71">paragraph_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>();
-    <span class="kw">let </span>item_length = <a href="#70">item_text</a>.len() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+    <span class="kw">let </span>paragraph_text = <a href="#71">paragraph_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>();
+    <span class="kw">let </span>item_length = <a href="#70">item_text</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.len">len</a>() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
     <span class="kw">unsafe </span>{
-        ffi::pango_shape_full(
-            <a href="#70">item_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+        <a href="../../pango_sys/fn.pango_shape_full.html">ffi::pango_shape_full</a>(
+            <a href="#70">item_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             <a href="#80">item_length</a>,
             <a href="#79">paragraph_text</a>.<span class="number">0</span>,
             <a href="#75">paragraph_length</a>,
-            <a href="#72">analysis</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-            <a href="#73">glyphs</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
+            <a href="#72">analysis</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#73">glyphs</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
         );
     }
 }
@@ -388,19 +386,19 @@
     paragraph_text: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
     analysis: <span class="kw-2">&amp;</span><a href="analysis.rs.html#9-14">Analysis</a>,
     glyphs: <span class="kw-2">&amp;mut </span><a href="auto/glyph_string.rs.html#8-22">GlyphString</a>,
-    flags: <a href="auto/flags.rs.html#329-345">ShapeFlags</a>,
+    flags: <a href="auto/flags.rs.html#330-346">ShapeFlags</a>,
 ) {
-    <span class="kw">let </span>item_length = <a href="#131">item_text</a>.len() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
-    <span class="kw">let </span>paragraph_length = <a href="#132">paragraph_text</a>.map(|t| <a href="#138">t</a>.len() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>).unwrap_or_default();
+    <span class="kw">let </span>item_length = <a href="#131">item_text</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.len">len</a>() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+    <span class="kw">let </span>paragraph_length = <a href="#132">paragraph_text</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.map">map</a>(|t| <a href="#138">t</a>.<a href="https://doc.rust-lang.org/nightly/core/foreigntype.str.html#method.len">len</a>() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>).<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or_default">unwrap_or_default</a>();
     <span class="kw">unsafe </span>{
-        ffi::pango_shape_with_flags(
-            <a href="#131">item_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+        <a href="../../pango_sys/fn.pango_shape_with_flags.html">ffi::pango_shape_with_flags</a>(
+            <a href="#131">item_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             <a href="#137">item_length</a>,
-            <a href="#132">paragraph_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#132">paragraph_text</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
             <a href="#138">paragraph_length</a>,
-            <a href="#133">analysis</a>.<a href="../../glib/translate/trait.ToGlibPtr.html">to_glib_none</a>().<span class="number">0</span>,
-            <a href="#134">glyphs</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>,
-            <a href="#135">flags</a>.<a href="../../glib/translate/trait.IntoGlib.html">into_glib</a>(),
+            <a href="#133">analysis</a>.<a href="../../glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+            <a href="#134">glyphs</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+            <a href="#135">flags</a>.<a href="../../glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
         );
     }
 }
@@ -428,11 +426,11 @@
 /// rectangle to round to nearest pixels
 </span><span class="attr">#[doc(alias = <span class="string">"pango_extents_to_pixels"</span>)]
 </span><span class="kw">pub fn </span><a href="../../pango/fn.extents_to_pixels.html">extents_to_pixels</a>(
-    <span class="kw-2">mut </span>inclusive: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span><a href="rectangle.rs.html#7-15"><span class="kw">crate</span>::Rectangle</a>&gt;,
-    <span class="kw-2">mut </span>nearest: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span><a href="rectangle.rs.html#7-15"><span class="kw">crate</span>::Rectangle</a>&gt;,
+    <span class="kw-2">mut </span>inclusive: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span><a href="rectangle.rs.html#8-16"><span class="kw">crate</span>::Rectangle</a>&gt;,
+    <span class="kw-2">mut </span>nearest: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;mut </span><a href="rectangle.rs.html#8-16"><span class="kw">crate</span>::Rectangle</a>&gt;,
 ) {
     <span class="kw">unsafe </span>{
-        ffi::pango_extents_to_pixels(<a href="#175">inclusive</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#176">nearest</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html">to_glib_none_mut</a>().<span class="number">0</span>);
+        <a href="../../pango_sys/fn.pango_extents_to_pixels.html">ffi::pango_extents_to_pixels</a>(<a href="#175">inclusive</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>, <a href="#176">nearest</a>.<a href="../../glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>);
     }
 }
 </code></pre></div></section></main></body></html>
